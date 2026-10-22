@@ -13,7 +13,7 @@ Most energy projects follow *technology → deployment → community*. We revers
 | `index.html` | Bilingual pilot page (ES/EN): project overview, kit downloads, facilitator tool to upload a Community Plan and match it with actors, aggregate MEL panel |
 | `kit/Protagonistas_del_Cambio_Kit_v0.1.pdf` | Print-and-play kit in Spanish (18 US Letter pages) |
 | `kit/Protagonists_of_Change_Kit_v0.1_EN.pdf` | Same kit in English, for reviewers |
-| `img/` | Board and cover images used by the page |
+| `*.jpg` | Board and cover images used by the page |
 
 ## How it works
 

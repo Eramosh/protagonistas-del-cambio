@@ -266,8 +266,8 @@ footer ol{padding-left:18px;margin:8px 0 0}footer li{margin:3px 0;overflow-wrap:
 <section class="band" id="kit"><div class="wrap">
   <div class="sec-head"><div class="eyebrow" data-i18n="kit_eyebrow">Prototipo v0.1</div><h2 data-i18n="kit_title">El kit para imprimir</h2><p data-i18n="kit_sub">18 páginas en tamaño carta: reglas, consentimiento, tablero, Hoja de Plan y 100 cartas. Se juega con maíz, frijol y pepita como fichas.</p></div>
   <div class="kits">
-    <div class="kit"><img src="img/portada_es.jpg" width="96" alt="Portada del kit en español"><div><h3>Español</h3><p data-i18n="kit_es_p">Versión para jugar en comunidad. Edición piloto Yucatán.</p><a class="btn" href="kit/Protagonistas_del_Cambio_Kit_v0.1.pdf" download><span data-i18n="dl">Descargar PDF</span></a></div></div>
-    <div class="kit"><img src="img/cover_en.jpg" width="96" alt="English kit cover"><div><h3>English</h3><p data-i18n="kit_en_p">Para revisión de socios y jurados internacionales.</p><a class="btn" href="kit/Protagonists_of_Change_Kit_v0.1_EN.pdf" download><span data-i18n="dl">Descargar PDF</span></a></div></div>
+    <div class="kit"><img src="portada_es.jpg" width="96" alt="Portada del kit en español"><div><h3>Español</h3><p data-i18n="kit_es_p">Versión para jugar en comunidad. Edición piloto Yucatán.</p><a class="btn" href="kit/Protagonistas_del_Cambio_Kit_v0.1.pdf" download><span data-i18n="dl">Descargar PDF</span></a></div></div>
+    <div class="kit"><img src="cover_en.jpg" width="96" alt="English kit cover"><div><h3>English</h3><p data-i18n="kit_en_p">Para revisión de socios y jurados internacionales.</p><a class="btn" href="kit/Protagonists_of_Change_Kit_v0.1_EN.pdf" download><span data-i18n="dl">Descargar PDF</span></a></div></div>
     <div class="contents">
       <div class="eyebrow" data-i18n="kit_inside">Qué trae</div>
       <ul>
@@ -277,7 +277,7 @@ footer ol{padding-left:18px;margin:8px 0 0}footer li{margin:3px 0;overflow-wrap:
         <li data-i18n="ki4">25 mini-retos: pregunta, plática y lo que tenemos</li>
         <li data-i18n="ki5">Eventos, soluciones, financiamiento y 8 actores para doblar</li>
       </ul>
-      <a href="img/tablero.jpg" target="_blank" rel="noopener" id="board-link"><img class="boardimg" id="board-img" src="img/tablero.jpg" alt="Tablero del juego" width="1648" height="1275" loading="lazy"></a>
+      <a href="tablero.jpg" target="_blank" rel="noopener" id="board-link"><img class="boardimg" id="board-img" src="tablero.jpg" alt="Tablero del juego" width="1648" height="1275" loading="lazy"></a>
     </div>
   </div>
 </div></section>
@@ -595,7 +595,7 @@ function applyLang(){
   $('#lang-es').setAttribute('aria-pressed', lang === 'es'); $('#lang-en').setAttribute('aria-pressed', lang === 'en');
   if (plan.example) Object.assign(plan, lang === 'en' ? EX_EN : EX_ES);
   $('#mode-text').textContent = t('mode');
-  const bimg = lang === 'en' ? 'img/board_en.jpg' : 'img/tablero.jpg'; $('#board-img').src = bimg; $('#board-link').href = bimg;
+  const bimg = lang === 'en' ? 'board_en.jpg' : 'tablero.jpg'; $('#board-img').src = bimg; $('#board-link').href = bimg;
   $('#p-need-other').placeholder = t('need_other_ph'); $('#p-sol-other').placeholder = t('sol_other_ph');
   renderPlanForm(); renderStack(); renderPiles(); if (step === 3) renderRoute(); renderStats(); renderActors();
 }
