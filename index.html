@@ -1,0 +1,822 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Protagonistas del Cambio: juego comunitario y herramienta de Match para una transición energética justa en comunidades rurales de América Latina.">
+<title>Protagonistas del Cambio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<style>
+/* Layout: one long page that follows the project's own sequence — thesis, why, how it ties together, kit, live tool, data, actors. Palette and type match the printed kit. */
+:root{
+  --bg:#FFFDF8; --surface:#FFFFFF; --soft:#F4EFE5; --line:#E2DBCD; --fg:#1F1D2B; --mute:#625E70;
+  --terra:#D2532E; --teal:#11717A; --maiz:#E5A21F; --verde:#3E8E52; --indigo:#36479A; --rosa:#C2457D; --violeta:#5E4192;
+  --on-accent:#FFFFFF; --ok:#2F7D4A; --warn:#A86A00;
+  --display:'Bricolage Grotesque', 'Segoe UI', system-ui, sans-serif;
+  --body:'Atkinson Hyperlegible', 'Segoe UI', system-ui, sans-serif;
+  --r:14px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#17161F; --surface:#201F2A; --soft:#272533; --line:#38354A; --fg:#F2EFE8; --mute:#ABA6B8;
+  --terra:#E8714C; --teal:#3BA3AB; --maiz:#F0B53E; --verde:#5DB173; --indigo:#7D8BE0; --rosa:#E06C9F; --violeta:#9C82D6;
+  --on-accent:#17161F; --ok:#6CC58A; --warn:#F0B53E; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#17161F; --surface:#201F2A; --soft:#272533; --line:#38354A; --fg:#F2EFE8; --mute:#ABA6B8;
+  --terra:#E8714C; --teal:#3BA3AB; --maiz:#F0B53E; --verde:#5DB173; --indigo:#7D8BE0; --rosa:#E06C9F; --violeta:#9C82D6;
+  --on-accent:#17161F; --ok:#6CC58A; --warn:#F0B53E; color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+img{max-width:100%}
+body{background:var(--bg);color:var(--fg);font:16px/1.55 var(--body);margin:0}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.05;letter-spacing:-.015em}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.eyebrow{font:700 12px/1 var(--display);letter-spacing:.12em;text-transform:uppercase;color:var(--mute)}
+.btn{display:inline-flex;align-items:center;gap:8px;border:2px solid var(--fg);background:var(--fg);color:var(--bg);font:700 15px/1 var(--display);padding:12px 18px;border-radius:999px;cursor:pointer;text-decoration:none}
+.btn.ghost{background:transparent;color:var(--fg)}
+.btn:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,a:focus-visible{outline:3px solid var(--maiz);outline-offset:2px}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.ic{width:1.15em;height:1.15em;flex:none;vertical-align:-.2em}
+/* header */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;gap:16px;padding-block:10px}
+.brand{font:800 17px/1 var(--display);text-decoration:none;display:flex;align-items:center;gap:10px;white-space:nowrap}
+.brand .dots{display:flex;gap:3px}.brand .dots i{width:8px;height:8px;border-radius:50%;display:block}
+nav.links{display:flex;gap:18px;margin-left:auto;font:600 14px/1 var(--display)}
+nav.links a{text-decoration:none;color:var(--mute)} nav.links a:hover{color:var(--fg)}
+.lang{display:flex;border:1.5px solid var(--fg);border-radius:999px;overflow:hidden;flex:none}
+.lang button{border:0;background:transparent;color:var(--fg);font:700 13px/1 var(--display);padding:7px 11px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+@media (max-width:820px){nav.links{display:none}.lang{margin-left:auto}}
+/* hero */
+.hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center;padding-block:56px 40px}
+.hero h1{font-size:clamp(40px,6.4vw,76px);font-weight:800}
+.hero p.lead{font-size:clamp(17px,1.6vw,20px);max-width:36ch;margin:18px 0 26px;color:var(--fg)}
+.hero .ctas{display:flex;gap:12px;flex-wrap:wrap}
+.hero svg{width:100%;height:auto;max-width:440px;justify-self:end}
+@media (max-width:820px){.hero .wrap{grid-template-columns:1fr;padding-block:32px 24px}.hero svg{justify-self:center;max-width:320px}}
+/* sections */
+section.band{padding-block:56px;border-top:1px solid var(--line)}
+section.band.alt{background:var(--soft)}
+.sec-head{display:grid;gap:10px;margin-bottom:28px;max-width:68ch}
+.sec-head h2{font-size:clamp(28px,3.6vw,42px);font-weight:800}
+.sec-head p{margin:0;color:var(--mute)}
+/* facts */
+.facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.fact{border-top:3px solid var(--c);padding-top:14px;min-width:0}
+.fact b{display:block;font:800 clamp(30px,3.4vw,44px)/1 var(--display);color:var(--c);font-variant-numeric:tabular-nums}
+.fact p{margin:8px 0 6px}
+.fact small{color:var(--mute);font-size:13px}
+@media (max-width:820px){.facts{grid-template-columns:1fr}}
+/* flow */
+.flow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;counter-reset:f}
+.step{background:var(--surface);border:1.5px solid var(--line);border-radius:var(--r);padding:16px;position:relative;min-width:0}
+.step .num{width:34px;height:34px;border-radius:50%;background:var(--c);color:var(--on-accent);display:flex;align-items:center;justify-content:center;font:800 16px var(--display);margin-bottom:12px}
+.step h3{font-size:18px;margin-bottom:6px}
+.step p{margin:0 0 10px;font-size:14.5px}
+.step .out{font-size:13px;color:var(--mute);border-top:1px dashed var(--line);padding-top:8px}
+.step .where{display:inline-block;font:700 11px/1 var(--display);letter-spacing:.08em;text-transform:uppercase;padding:5px 8px;border-radius:999px;background:var(--soft);margin-bottom:8px}
+.step:not(:last-child)::after{content:"";position:absolute;right:-10px;top:32px;width:8px;height:8px;border-top:2px solid var(--mute);border-right:2px solid var(--mute);transform:rotate(45deg)}
+@media (max-width:960px){.flow{grid-template-columns:1fr 1fr}.step::after{display:none}}
+@media (max-width:520px){.flow{grid-template-columns:1fr}}
+/* kit */
+.kits{display:grid;grid-template-columns:repeat(2,minmax(0,1fr)) 1.1fr;gap:20px;align-items:start}
+.kit{background:var(--surface);border:1.5px solid var(--line);border-radius:var(--r);padding:16px;display:grid;grid-template-columns:96px 1fr;gap:14px;min-width:0}
+.kit img{width:96px;border-radius:6px;border:1px solid var(--line);display:block}
+.kit h3{font-size:18px}.kit p{margin:6px 0 12px;font-size:14px;color:var(--mute)}
+.kit .btn{font-size:14px;padding:10px 14px}
+.kit-note{font-size:13px;color:var(--mute);margin-top:8px}
+.contents{font-size:14.5px;min-width:0}.contents ul{margin:8px 0 0;padding-left:18px}.contents li{margin:3px 0}
+.boardimg{width:100%;border-radius:10px;border:1px solid var(--line);margin-top:12px;display:block}
+@media (max-width:960px){.kits{grid-template-columns:1fr}}
+/* tool */
+.tool{background:var(--surface);border:2px solid var(--fg);border-radius:20px;overflow:hidden}
+.tool-top{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1.5px solid var(--line)}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tab{font:700 13px/1 var(--display);padding:8px 12px;border-radius:999px;border:1.5px solid var(--line);color:var(--mute);background:transparent}
+.tab[aria-current="step"]{border-color:var(--fg);color:var(--fg)}
+.tab.done{color:var(--ok);border-color:var(--ok)}
+.mode{font:700 12px/1.2 var(--display);padding:7px 11px;border-radius:999px;background:var(--soft);display:flex;gap:6px;align-items:center}
+.mode i{width:8px;height:8px;border-radius:50%;background:var(--warn);display:block}
+.mode.live i{background:var(--ok)}
+.pane{padding:22px 18px 24px}
+.pane h3{font-size:22px;margin-bottom:6px}
+.pane .hint{color:var(--mute);margin:0 0 18px;font-size:15px;max-width:70ch}
+.checks{display:grid;gap:10px;max-width:760px}
+.check{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border:1.5px solid var(--line);border-radius:12px;cursor:pointer;background:var(--bg)}
+.check input{width:20px;height:20px;margin-top:2px;accent-color:var(--teal);flex:none}
+.check.opt{border-style:dashed}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 22px}
+@media (max-width:720px){.grid2{grid-template-columns:1fr}}
+label.f{display:grid;gap:6px;font:700 13px/1.2 var(--display);min-width:0}
+label.f small{font:400 13px/1.3 var(--body);color:var(--mute)}
+input[type=text],input[type=number],input[type=date],textarea{font:16px var(--body);color:var(--fg);background:var(--bg);border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;width:100%}
+textarea{min-height:70px;resize:vertical}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:7px;border:1.5px solid var(--line);background:var(--bg);color:var(--fg);border-radius:999px;padding:8px 12px;font:600 14px/1 var(--body);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--c,var(--teal));border-color:var(--c,var(--teal));color:var(--on-accent)}
+.field-title{font:700 13px/1.2 var(--display);margin:0 0 8px}
+.example-tag{display:inline-block;font:700 11px/1 var(--display);letter-spacing:.08em;text-transform:uppercase;background:var(--maiz);color:#1F1D2B;padding:5px 8px;border-radius:6px;margin-left:8px;vertical-align:2px}
+.nav-row{display:flex;justify-content:space-between;gap:12px;margin-top:24px;flex-wrap:wrap}
+.err{color:var(--terra);font-weight:700;font-size:14px;margin-top:10px;min-height:1.2em}
+/* match */
+.match-area{display:grid;grid-template-columns:minmax(0,380px) 1fr;gap:28px;align-items:start}
+@media (max-width:820px){.match-area{grid-template-columns:1fr}}
+.stack{position:relative;height:470px;touch-action:pan-y}
+.acard{position:absolute;inset:0;background:var(--surface);border:2px solid var(--fg);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 10px 24px -14px rgba(0,0,0,.35);transition:transform .25s ease, opacity .25s ease;user-select:none}
+.acard.behind{transform:translateY(10px) scale(.96);opacity:.7}
+.acard.behind2{transform:translateY(20px) scale(.92);opacity:.4}
+.acard .ahd{background:var(--indigo);color:#fff;padding:16px 18px 14px;position:relative}
+.acard .ahd .type{font:700 11px/1 var(--display);letter-spacing:.1em;text-transform:uppercase;opacity:.9}
+.acard .ahd h4{font:800 22px/1.1 var(--display);margin:8px 0 4px}
+.acard .ahd .terr{font-size:13px;opacity:.9}
+.acard .abd{padding:14px 18px;display:grid;gap:10px;font-size:14.5px;overflow:auto;flex:1}
+.acard .k{font:700 11px/1 var(--display);letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin-bottom:3px}
+.acard .why{font-size:13px;background:var(--soft);border-radius:10px;padding:8px 10px}
+.stamp{position:absolute;top:16px;right:16px;font:800 18px/1 var(--display);padding:6px 10px;border:3px solid;border-radius:8px;opacity:0;transform:rotate(8deg)}
+.stamp.yes{color:var(--ok)} .stamp.no{color:var(--terra);left:16px;right:auto;transform:rotate(-8deg)}
+.swipe-btns{display:flex;justify-content:center;gap:14px;margin-top:16px}
+.swipe-btns .btn.no{background:transparent;color:var(--terra);border-color:var(--terra)}
+.swipe-btns .btn.yes{background:var(--ok);border-color:var(--ok);color:#fff}
+.pile{display:grid;gap:8px}
+.pile h4{font:700 14px/1.2 var(--display);margin:0 0 4px}
+.pill{display:flex;justify-content:space-between;gap:10px;align-items:center;border:1.5px solid var(--line);border-radius:10px;padding:8px 10px;font-size:14px;background:var(--bg)}
+.pill button{border:0;background:transparent;color:var(--mute);font:700 12px var(--display);cursor:pointer;text-decoration:underline}
+.empty{border:1.5px dashed var(--line);border-radius:12px;padding:14px;color:var(--mute);font-size:14px}
+/* route */
+.route{display:grid;gap:12px}
+.rcard{border:1.5px solid var(--line);border-left:6px solid var(--indigo);border-radius:12px;padding:12px 14px;background:var(--bg)}
+.rcard h4{font:800 17px/1.2 var(--display);margin:0 0 6px}
+.rcard p{margin:4px 0;font-size:14.5px}
+.rcard a{font-size:13.5px}
+.msg{white-space:pre-wrap;background:var(--soft);border-radius:12px;padding:14px;font-size:14.5px;max-width:720px}
+.status{font-weight:700;font-size:14px;margin-top:10px}
+.status.ok{color:var(--ok)}.status.warn{color:var(--warn)}
+/* stats */
+.tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-bottom:26px}
+.tile{background:var(--surface);border:1.5px solid var(--line);border-radius:var(--r);padding:16px}
+.tile b{display:block;font:800 36px/1 var(--display);font-variant-numeric:tabular-nums}
+.tile span{font-size:13.5px;color:var(--mute)}
+@media (max-width:720px){.tiles{grid-template-columns:1fr 1fr}}
+.bars{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+@media (max-width:860px){.bars{grid-template-columns:1fr}}
+.bars h3{font-size:17px;margin-bottom:10px}
+.bar{display:grid;grid-template-columns:minmax(0,1fr) 34px;gap:8px;align-items:center;font-size:14px;margin:7px 0}
+.bar .track{grid-column:1/2;height:8px;border-radius:4px;background:var(--line);overflow:hidden}
+.bar .fill{height:100%;background:var(--c,var(--teal));border-radius:4px}
+.bar .n{font-variant-numeric:tabular-nums;font-weight:700;text-align:right;grid-row:1/3;grid-column:2}
+/* actors */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.actors{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+@media (max-width:960px){.actors{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){.actors{grid-template-columns:1fr}}
+.actor{background:var(--surface);border:1.5px solid var(--line);border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.actor .type{font:700 11px/1 var(--display);letter-spacing:.1em;text-transform:uppercase;color:var(--indigo)}
+.actor h3{font-size:18px}
+.actor .terr{font-size:13px;color:var(--mute)}
+.actor p{margin:0;font-size:14px}
+.actor .k{font:700 11px/1 var(--display);letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin-top:4px}
+.actor .src{font-size:12.5px;color:var(--mute);margin-top:auto;border-top:1px dashed var(--line);padding-top:8px;overflow-wrap:anywhere}
+.sol-icons{display:flex;gap:6px;flex-wrap:wrap}
+.sol-icons span{width:28px;height:28px;border-radius:50%;background:var(--verde);color:#fff;display:inline-flex;align-items:center;justify-content:center}
+.badge-gen{font:700 11px/1 var(--display);background:var(--soft);padding:4px 7px;border-radius:6px;color:var(--mute)}
+/* ethics + footer */
+.ethics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 28px;font-size:15px}
+.ethics div{border-top:1.5px solid var(--line);padding-top:10px}
+.ethics b{font-family:var(--display)}
+@media (max-width:720px){.ethics{grid-template-columns:1fr}}
+footer{padding-block:36px;border-top:1px solid var(--line);font-size:13.5px;color:var(--mute)}
+footer ol{padding-left:18px;margin:8px 0 0}footer li{margin:3px 0;overflow-wrap:anywhere}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:820px){.grid3{grid-template-columns:1fr}}
+.other-in{margin-top:10px;max-width:420px}
+.note-demo{font-size:13.5px;background:var(--soft);border-radius:10px;padding:8px 12px;margin:0 0 16px;max-width:70ch}
+.sim{border:1.5px dashed var(--line);border-radius:var(--r);padding:12px 14px;font-size:14px;margin-bottom:18px;display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;justify-content:space-between}
+.sim label{display:flex;gap:8px;align-items:center;cursor:pointer}
+.linkbtn{border:0;background:transparent;color:var(--mute);text-decoration:underline;font:600 13px var(--body);cursor:pointer;padding:0}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand" href="#inicio"><span class="dots"><i style="background:var(--rosa)"></i><i style="background:var(--verde)"></i><i style="background:var(--indigo)"></i></span><span data-i18n="brand">Protagonistas del Cambio</span></a>
+  <nav class="links">
+    <a href="#como" data-i18n="nav_how">Cómo funciona</a>
+    <a href="#kit" data-i18n="nav_kit">Kit</a>
+    <a href="#match" data-i18n="nav_match">Cargar y hacer Match</a>
+    <a href="#datos" data-i18n="nav_data">Datos</a>
+    <a href="#actores" data-i18n="nav_actors">Actores</a>
+  </nav>
+  <div class="lang" role="group" aria-label="Idioma / Language">
+    <button id="lang-es" type="button" aria-pressed="true">ES</button><button id="lang-en" type="button" aria-pressed="false">EN</button>
+  </div>
+</div></header>
+
+<main id="inicio">
+<section class="hero"><div class="wrap">
+  <div>
+    <div class="eyebrow" data-i18n="hero_eyebrow">Transición energética justa · Comunidades rurales de América Latina</div>
+    <h1 data-i18n="hero_title">Primero la comunidad. Después la tecnología.</h1>
+    <p class="lead" data-i18n="hero_lead">Un juego de mesa para que la comunidad decida su camino de energía, y una herramienta que conecta su Plan con quienes pueden ayudar.</p>
+    <div class="ctas">
+      <a class="btn" href="#kit"><span data-i18n="cta_kit">Descargar el kit</span></a>
+      <a class="btn ghost" href="#match"><span data-i18n="cta_match">Probar el Match</span></a>
+    </div>
+  </div>
+  <svg viewBox="0 0 440 400" role="img" aria-label="Camino de cinco estaciones">
+    <circle cx="330" cy="110" r="96" fill="var(--maiz)" opacity=".95"/>
+    <circle cx="380" cy="190" r="62" fill="var(--terra)" opacity=".85"/>
+    <circle cx="70" cy="170" r="34" fill="var(--rosa)" opacity=".9"/>
+    <circle cx="98" cy="192" r="18" fill="var(--indigo)" opacity=".9"/>
+    <path d="M30 380 C 60 350, 60 330, 80 322 S 120 262, 150 272 S 210 330, 236 304 S 280 238, 300 246 S 350 220, 352 176" fill="none" stroke="var(--fg)" stroke-width="3" stroke-dasharray="0.1 9" stroke-linecap="round"/>
+    <g font-family="Bricolage Grotesque, sans-serif" font-weight="800" font-size="17" text-anchor="middle">
+      <circle cx="80" cy="322" r="17" fill="var(--bg)" stroke="var(--fg)" stroke-width="2.5"/><text x="80" y="328" fill="var(--fg)">1</text>
+      <circle cx="150" cy="272" r="17" fill="var(--bg)" stroke="var(--fg)" stroke-width="2.5"/><text x="150" y="278" fill="var(--fg)">2</text>
+      <circle cx="236" cy="304" r="17" fill="var(--bg)" stroke="var(--fg)" stroke-width="2.5"/><text x="236" y="310" fill="var(--fg)">3</text>
+      <circle cx="300" cy="246" r="17" fill="var(--bg)" stroke="var(--fg)" stroke-width="2.5"/><text x="300" y="252" fill="var(--fg)">4</text>
+      <circle cx="352" cy="176" r="17" fill="var(--bg)" stroke="var(--fg)" stroke-width="2.5"/><text x="352" y="182" fill="var(--fg)">5</text>
+    </g>
+  </svg>
+</div></section>
+
+<section class="band" id="porque"><div class="wrap">
+  <div class="sec-head"><div class="eyebrow" data-i18n="why_eyebrow">Por qué así</div><h2 data-i18n="why_title">Lo que nos dicen los datos del territorio piloto</h2></div>
+  <div class="facts">
+    <div class="fact" style="--c:var(--terra)"><b>30.8 %</b><p data-i18n="fact1">de los hogares de Yucatán cocina con leña o carbón; el promedio nacional es 13.5 %. Por eso el juego no habla solo de paneles.</p><small><a href="https://seplan.yucatan.gob.mx//storage/Planeación/Programa Especial de Bienestar Energético y Mitigación de Emisiones_69700ce2554d0.pdf" target="_blank" rel="noopener">Agencia de Energía de Yucatán, 2025</a></small></div>
+    <div class="fact" style="--c:var(--teal)"><b>~63 %</b><p data-i18n="fact2">de la población rural de América Latina no tiene conectividad significativa. Por eso el juego es físico y la herramienta la usa solo quien facilita.</p><small><a href="https://dplnews.com/?p=75189" target="_blank" rel="noopener">BID · IICA · Microsoft, vía DPL News</a></small></div>
+    <div class="fact" style="--c:var(--indigo)"><b>2026</b><p data-i18n="fact3">Comunidades mayas de Muna, Sacalum y Ticul lograron cancelar megaproyectos solares hechos sin ellas. La tecnología sin la comunidad no avanza.</p><small><a href="https://www.poresto.com/yucatan/2026/6/23/comunidades-mayas-logran-la-cancelacion-definitiva-de-megaproyectos-solares-en-muna-sacalum-y-ticul.amp.html" target="_blank" rel="noopener">Por Esto, junio 2026</a></small></div>
+  </div>
+</div></section>
+
+<section class="band alt" id="como"><div class="wrap">
+  <div class="sec-head"><div class="eyebrow" data-i18n="how_eyebrow">Cómo se conecta todo</div><h2 data-i18n="how_title">Del juego en la mesa a una conversación real con quien puede ayudar</h2><p data-i18n="how_sub">Cada paso produce algo que alimenta al siguiente. La comunidad decide en cada uno.</p></div>
+  <div class="flow">
+    <div class="step" style="--c:var(--rosa)"><div class="num">1</div><span class="where" data-i18n="s1_where">En la mesa · sin internet</span><h3 data-i18n="s1_t">Juego físico</h3><p data-i18n="s1_p">La comunidad recorre 5 estaciones en un año de juego: necesidades, alternativas, actores, financiamiento y cuidado.</p><div class="out" data-i18n="s1_o">Produce: acuerdos en cada estación.</div></div>
+    <div class="step" style="--c:var(--verde)"><div class="num">2</div><span class="where" data-i18n="s2_where">En papel</span><h3 data-i18n="s2_t">Hoja de Plan</h3><p data-i18n="s2_p">Los acuerdos se escriben en la Hoja de Plan Comunitario. Ganen o pierdan, el Plan se queda con la comunidad.</p><div class="out" data-i18n="s2_o">Produce: el Plan de la comunidad.</div></div>
+    <div class="step" style="--c:var(--indigo)"><div class="num">3</div><span class="where" data-i18n="s3_where">Un celular · quien facilita</span><h3 data-i18n="s3_t">Carga del Plan</h3><p data-i18n="s3_p">Con el consentimiento del grupo, quien facilita pasa el Plan a esta página. Sin nombres de personas.</p><div class="out" data-i18n="s3_o">Produce: datos para el Match y el MEL.</div></div>
+    <div class="step" style="--c:var(--oliva, var(--maiz))"><div class="num">4</div><span class="where" data-i18n="s4_where">En esta página</span><h3 data-i18n="s4_t">Match real</h3><p data-i18n="s4_p">El Plan se cruza con la base de actores reales del territorio. La comunidad dice «Sí, hablemos» o «No por ahora».</p><div class="out" data-i18n="s4_o">Produce: una ruta de contacto y un mensaje listo.</div></div>
+    <div class="step" style="--c:var(--teal)"><div class="num">5</div><span class="where" data-i18n="s5_where">WhatsApp · 2 a 4 semanas</span><h3 data-i18n="s5_t">Seguimiento y MEL</h3><p data-i18n="s5_p">El comité contacta a sus actores. El equipo da seguimiento en la fecha de revisión y mide lo aprendido.</p><div class="out" data-i18n="s5_o">Produce: evidencia para mejorar el juego.</div></div>
+  </div>
+</div></section>
+
+<section class="band" id="kit"><div class="wrap">
+  <div class="sec-head"><div class="eyebrow" data-i18n="kit_eyebrow">Prototipo v0.1</div><h2 data-i18n="kit_title">El kit para imprimir</h2><p data-i18n="kit_sub">18 páginas en tamaño carta: reglas, consentimiento, tablero, Hoja de Plan y 100 cartas. Se juega con maíz, frijol y pepita como fichas.</p></div>
+  <div class="kits">
+    <div class="kit"><img src="data:image/jpeg;base64,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" alt="Portada del kit en español"><div><h3>Español</h3><p data-i18n="kit_es_p">Versión para jugar en comunidad. Edición piloto Yucatán.</p><a class="btn" href="kit/Protagonistas_del_Cambio_Kit_v0.1.pdf" download><span data-i18n="dl">Descargar PDF</span></a></div></div>
+    <div class="kit"><img src="data:image/jpeg;base64,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" alt="English kit cover"><div><h3>English</h3><p data-i18n="kit_en_p">Para revisión de socios y jurados internacionales.</p><a class="btn" href="kit/Protagonists_of_Change_Kit_v0.1_EN.pdf" download><span data-i18n="dl">Descargar PDF</span></a></div></div>
+    <div class="contents">
+      <div class="eyebrow" data-i18n="kit_inside">Qué trae</div>
+      <ul>
+        <li data-i18n="ki1">Reglas en 2 páginas y consentimiento para leer en voz alta</li>
+        <li data-i18n="ki2">Tablero: calendario de 12 meses y 5 estaciones</li>
+        <li data-i18n="ki3">8 roles sin género y la carta del Juez del mes</li>
+        <li data-i18n="ki4">25 mini-retos: pregunta, plática y lo que tenemos</li>
+        <li data-i18n="ki5">Eventos, soluciones, financiamiento y 8 actores para doblar</li>
+      </ul>
+      <img class="boardimg" src="data:image/jpeg;base64,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" alt="Tablero del juego">
+    </div>
+  </div>
+</div></section>
+
+<section class="band alt" id="match"><div class="wrap">
+  <div class="sec-head"><div class="eyebrow" data-i18n="tool_eyebrow">Herramienta de quien facilita</div><h2 data-i18n="tool_title">Cargar un Plan y hacer el Match</h2><p data-i18n="tool_sub">Después del juego, quien facilita pasa la Hoja de Plan aquí. La página propone actores reales; la comunidad decide con quién hablar.</p></div>
+  <div class="tool">
+    <div class="tool-top">
+      <div class="tabs" role="list">
+        <span class="tab" role="listitem" data-tab="0" data-i18n="t0">1 · Consentimiento</span>
+        <span class="tab" role="listitem" data-tab="1" data-i18n="t1">2 · Plan</span>
+        <span class="tab" role="listitem" data-tab="2" data-i18n="t2">3 · Match</span>
+        <span class="tab" role="listitem" data-tab="3" data-i18n="t3">4 · Ruta</span>
+      </div>
+      <div class="mode" id="mode"><i></i><span id="mode-text"></span></div>
+    </div>
+
+    <div class="pane" data-pane="0">
+      <h3 data-i18n="c_title">Antes de cargar: el consentimiento del grupo</h3>
+      <p class="hint" data-i18n="c_hint">Marca lo que el grupo aceptó en el Paso 0 del juego. Sin las dos primeras, no se carga nada.</p>
+      <div class="checks">
+        <label class="check"><input type="checkbox" id="c1"><span data-i18n="c1">El grupo aceptó jugar y la autoridad de la comunidad dio permiso.</span></label>
+        <label class="check"><input type="checkbox" id="c2"><span data-i18n="c2">El grupo aceptó que se anoten sus decisiones, sin nombres, para mejorar el juego.</span></label>
+        <label class="check opt"><input type="checkbox" id="c3"><span data-i18n="c3">El grupo quiere compartir su Plan con los actores que elija (pregunta 4). Opcional.</span></label>
+      </div>
+      <div class="err" id="c-err" aria-live="polite"></div>
+      <div class="nav-row"><span></span><button class="btn" type="button" id="to1"><span data-i18n="next">Siguiente</span></button></div>
+    </div>
+
+    <div class="pane" data-pane="1" hidden>
+      <h3><span data-i18n="p_title">La Hoja de Plan</span><span class="example-tag" id="ex-tag" data-i18n="example">Ejemplo · cámbialo</span></h3>
+      <p class="hint" data-i18n="p_hint">Copia lo que la comunidad escribió. No pongas nombres de personas.</p>
+      <div class="grid2">
+        <label class="f"><span data-i18n="p_place">Municipio o región</span><input type="text" id="p-place" autocomplete="off"><small data-i18n="p_place_s">Opcional. Solo el municipio, nunca una dirección.</small></label>
+        <div class="grid2" style="gap:12px">
+          <label class="f"><span data-i18n="p_people">Personas que jugaron</span><input type="number" id="p-people" min="0" max="200" inputmode="numeric"></label>
+          <label class="f"><span data-i18n="p_women">De ellas, mujeres</span><input type="number" id="p-women" min="0" max="200" inputmode="numeric"><small data-i18n="p_women_s">Para el MEL. Opcional.</small></label>
+        </div>
+      </div>
+      <div style="margin-top:20px"><p class="field-title" data-i18n="p_needs">Estación 1 · Sus 3 necesidades principales</p><div class="chips" id="needs"></div><input type="text" id="p-need-other" class="other-in" maxlength="80" hidden></div>
+      <div style="margin-top:20px"><p class="field-title" data-i18n="p_sols">Estación 2 · Las soluciones que eligieron</p><div class="chips" id="sols"></div><input type="text" id="p-sol-other" class="other-in" maxlength="80" hidden></div>
+      <div class="grid2" style="margin-top:20px">
+        <label class="f"><span data-i18n="p_contrib">Estación 4 · Su aporte propio</span><textarea id="p-contrib"></textarea></label>
+        <label class="f"><span data-i18n="p_review">Estación 5 · Fecha de revisión</span><input type="date" id="p-review"><small data-i18n="p_review_s">El equipo da seguimiento en esta fecha.</small></label>
+      </div>
+      <div style="margin-top:22px"><p class="field-title" data-i18n="p_types">Estación 3 · Tipos de actores con los que hicieron match en el juego</p><p class="hint" style="margin:-4px 0 10px;font-size:14px" data-i18n="p_types_s">Está en la página 2 de la Hoja de Plan. En el Match solo aparecerán actores de estos tipos.</p><div class="chips" id="types"></div></div>
+      <div style="margin-top:22px"><p class="field-title" data-i18n="p_org">Cómo se organiza la comunidad · respuestas cortas</p>
+        <div class="grid3">
+          <label class="f"><span data-i18n="q1">¿Cómo toma decisiones la comunidad?</span><textarea id="q1"></textarea></label>
+          <label class="f"><span data-i18n="q2">¿Qué fue lo más importante que hablaron?</span><textarea id="q2"></textarea></label>
+          <label class="f"><span data-i18n="q3">¿Qué debe saber un actor antes de trabajar con ellos?</span><textarea id="q3"></textarea></label>
+        </div></div>
+      <div class="err" id="p-err" aria-live="polite"></div>
+      <div class="nav-row"><button class="btn ghost" type="button" data-back="0"><span data-i18n="back">Atrás</span></button><button class="btn" type="button" id="to2"><span data-i18n="tomatch">Buscar actores</span></button></div>
+    </div>
+
+    <div class="pane" data-pane="2" hidden>
+      <h3 data-i18n="m_title">Estación 3 en la vida real: el Match</h3>
+      <p class="hint" data-i18n="m_hint">Estos actores ayudan con las soluciones que eligieron. Léanlas en grupo y decidan: «Sí, hablemos» o «No por ahora». También pueden deslizar la carta.</p>
+      <p class="note-demo" data-i18n="demo_actors">Piloto: estos actores son ejemplos tomados de fuentes públicas. No hemos establecido relación con ninguno de ellos.</p>
+      <div class="match-area">
+        <div>
+          <div class="stack" id="stack" aria-live="polite"></div>
+          <div class="swipe-btns">
+            <button class="btn no" type="button" id="btn-no"><span data-i18n="no">No por ahora</span></button>
+            <button class="btn yes" type="button" id="btn-yes"><span data-i18n="yes">Sí, hablemos</span></button>
+          </div>
+        </div>
+        <div class="pile">
+          <h4 data-i18n="pile_yes">Sí, hablemos</h4><div id="pile-yes" class="pile"></div>
+          <h4 style="margin-top:12px" data-i18n="pile_no">No por ahora</h4><div id="pile-no" class="pile"></div>
+        </div>
+      </div>
+      <div class="nav-row"><button class="btn ghost" type="button" data-back="1"><span data-i18n="back">Atrás</span></button><button class="btn" type="button" id="to3"><span data-i18n="toroute">Ver la ruta de contacto</span></button></div>
+    </div>
+
+    <div class="pane" data-pane="3" hidden>
+      <h3 data-i18n="r_title">La ruta de contacto de la comunidad</h3>
+      <p class="hint" data-i18n="r_hint">Esta página no envía nada. La comunidad decide cuándo y cómo contactar a cada actor. Prepárense para lo que cada uno pide.</p>
+      <div class="route" id="route"></div>
+      <div style="margin-top:22px"><p class="field-title" data-i18n="r_msg">Mensaje para presentarse (para copiar en WhatsApp o en una carta)</p><div class="msg" id="msg"></div>
+        <div class="nav-row" style="justify-content:flex-start"><button class="btn ghost" type="button" id="copy"><span data-i18n="copy">Copiar mensaje</span></button></div>
+      </div>
+      <div class="status" id="save-status" aria-live="polite"></div>
+      <div class="nav-row"><button class="btn ghost" type="button" data-back="2"><span data-i18n="back">Atrás</span></button><button class="btn" type="button" id="restart"><span data-i18n="restart">Cargar otro Plan</span></button></div>
+    </div>
+  </div>
+</div></section>
+
+<section class="band" id="datos"><div class="wrap">
+  <div class="sec-head"><div class="eyebrow" data-i18n="d_eyebrow">MEL · datos agregados</div><h2 data-i18n="d_title">Lo que están diciendo las comunidades</h2><p data-i18n="d_sub">Solo totales, sin datos de ninguna comunidad en particular.</p></div>
+  <div id="stats"></div>
+</div></section>
+
+<section class="band alt" id="actores"><div class="wrap">
+  <div class="sec-head"><div class="eyebrow" data-i18n="a_eyebrow">Base de actores · Yucatán</div><h2 data-i18n="a_title">Quién puede ayudar, qué hace y qué pide</h2><p data-i18n="a_sub">Selección de ejemplo para demostrar cómo funciona la página piloto. No hemos establecido relación con ninguno de estos actores. La información viene de fuentes públicas revisadas el 22 de octubre de 2026; «Por confirmar» indica un dato que no encontramos.</p></div>
+  <div class="filters" id="filters"></div>
+  <div class="actors" id="actor-list"></div>
+</div></section>
+
+<section class="band" id="etica"><div class="wrap">
+  <div class="sec-head"><div class="eyebrow" data-i18n="e_eyebrow">Datos y ética</div><h2 data-i18n="e_title">Cómo cuidamos lo que comparte la comunidad</h2></div>
+  <div class="ethics">
+    <div><b data-i18n="e1t">Consentimiento en dos capas.</b> <span data-i18n="e1">Primero la autoridad propia de la comunidad, después cada persona. Se lee en voz alta y en la lengua local.</span></div>
+    <div><b data-i18n="e2t">Sin nombres.</b> <span data-i18n="e2">Se guardan solo las decisiones del grupo, el municipio y totales de participación.</span></div>
+    <div><b data-i18n="e3t">El Plan es de la comunidad.</b> <span data-i18n="e3">Siguiendo los principios CARE, la comunidad se queda con su Plan y decide con quién compartirlo.</span></div>
+    <div><b data-i18n="e4t">Nada se envía solo.</b> <span data-i18n="e4">El Match propone; la comunidad contacta. Ningún actor recibe datos desde esta página.</span></div>
+  </div>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <div data-i18n="foot">Protagonistas del Cambio · prototipo v0.1 · octubre 2026. Propuesta de diseño, no asesoría legal.</div>
+  <ol>
+    <li><a href="https://seplan.yucatan.gob.mx//storage/Planeación/Programa Especial de Bienestar Energético y Mitigación de Emisiones_69700ce2554d0.pdf" target="_blank" rel="noopener">Agencia de Energía de Yucatán — Programa Especial de Bienestar Energético y Mitigación de Emisiones (2025)</a></li>
+    <li><a href="https://dplnews.com/?p=75189" target="_blank" rel="noopener">DPL News — conectividad rural en América Latina (BID, IICA, Microsoft)</a></li>
+    <li><a href="https://www.poresto.com/yucatan/2026/6/23/comunidades-mayas-logran-la-cancelacion-definitiva-de-megaproyectos-solares-en-muna-sacalum-y-ticul.amp.html" target="_blank" rel="noopener">Por Esto — cancelación de megaproyectos solares en Muna, Sacalum y Ticul (junio 2026)</a></li>
+    <li><a href="https://www.gida-global.org/care" target="_blank" rel="noopener">GIDA — Principios CARE para la gobernanza de datos indígenas</a></li>
+  </ol>
+</div></footer>
+
+<script>
+const ACTORS = [{"id": "aey", "type": "gov", "territory": {"es": "Yucatán", "en": "Yucatán"}, "name": {"es": "Agencia de Energía de Yucatán", "en": "Yucatán Energy Agency"}, "does": {"es": "Elaboró el Programa Especial de Bienestar Energético 2025–2030: solar en viviendas con financiamiento, electrificación con renovables (prioridad en Cantamayec, Chemax y Mayapán), cocina limpia y pilotos en comunidades rurales.", "en": "Prepared the 2025–2030 Special Energy Wellbeing Programme: financed home solar, renewable electrification (priority in Cantamayec, Chemax and Mayapán), clean cooking and pilots in rural communities."}, "not": {"es": "No reparte equipos sin reglas de operación publicadas.", "en": "Does not hand out equipment without published operating rules."}, "asks": {"es": "Seguir sus convocatorias y presentar una solicitud formal de la comunidad.", "en": "Follow its calls and submit a formal request from the community."}, "solutions": ["home_solar", "lamp", "gas", "roof", "pump"], "any": false, "url": "", "sources": [{"label": "Programa Especial de Bienestar Energético (SEPLAN, 2025)", "url": "https://seplan.yucatan.gob.mx//storage/Planeación/Programa Especial de Bienestar Energético y Mitigación de Emisiones_69700ce2554d0.pdf"}, {"label": "Por Esto, abril 2026", "url": "https://www.poresto.com/yucatan/2026/4/26/yucatan-fortalece-coordinacion-con-la-federacion-para-proyectos-de-energia-limpia.html"}], "status": "verified", "gameTypes": ["programa"]}, {"id": "fide", "type": "finance", "territory": {"es": "Nacional", "en": "National"}, "name": {"es": "FIDE y SENER · paneles solares en vivienda", "en": "FIDE and SENER · home solar panels"}, "does": {"es": "Financia sistemas solares conectados a la red: 25 % lo pone SENER y 75 % es crédito FIDE, a pagar hasta en 5 años.", "en": "Finances grid-connected solar systems: SENER covers 25% and FIDE lends 75%, repayable over up to 5 years."}, "not": {"es": "No regala paneles. No sirve para viviendas sin conexión a la red.", "en": "Does not give panels away. Not for homes without a grid connection."}, "asks": {"es": "Ser dueño de la vivienda, recibo CFE en tarifa 1C a 1F, consulta de buró de crédito, identificación y RFC.", "en": "Home ownership, a CFE bill on tariff 1C to 1F, a credit bureau check, ID and tax number (RFC)."}, "solutions": ["home_solar"], "any": false, "url": "https://www.fide.org.mx", "sources": [{"label": "El Imparcial, enero 2025", "url": "https://www.elimparcial.com/dinero/2025/01/27/si-cumples-con-estos-requisitos-podrias-instalar-un-panel-solar-en-tu-casa-con-apoyo-gubernamental/"}, {"label": "Expansión: la CFE no regala paneles", "url": "https://expansion.mx/empresas/2024/04/11/la-cfe-no-regala-paneles-solares"}], "status": "verified", "gameTypes": ["programa", "caja"]}, {"id": "fira", "type": "finance", "territory": {"es": "Nacional, sector rural", "en": "National, rural sector"}, "name": {"es": "FIRA · FONAGA Verde", "en": "FIRA · FONAGA Verde"}, "does": {"es": "Respalda con garantías créditos rurales para biodigestores, sistemas solares, bombeo eficiente y frío para productos del campo.", "en": "Guarantees rural loans for biodigesters, solar systems, efficient pumping and cold storage for farm produce."}, "not": {"es": "No presta directo: el crédito lo da un intermediario financiero autorizado.", "en": "Does not lend directly: the loan comes from an authorised financial intermediary."}, "asks": {"es": "Un proyecto productivo y un crédito con un intermediario que trabaje con FIRA.", "en": "A productive project and a loan with an intermediary that works with FIRA."}, "solutions": ["biodigester", "home_solar", "pump", "fridge"], "any": false, "url": "https://www.fira.gob.mx", "sources": [{"label": "FIRA · FONAGA Verde", "url": "https://www.fira.gob.mx/Nd/FONAGA%20VERDE.pdf"}], "status": "verified", "gameTypes": ["caja", "programa"]}, {"id": "aee", "type": "alliance", "territory": {"es": "Yucatán y otros estados", "en": "Yucatán and other states"}, "name": {"es": "Alianza por la Equidad Energética (Sostenibilidad Global)", "en": "Alliance for Energy Equity (Sostenibilidad Global)"}, "does": {"es": "Proyectos solares comunitarios con mujeres mayas como promotoras: sistemas fotovoltaicos en centros comunitarios y casas, y bombeo solar para pequeños productores.", "en": "Community solar projects with Maya women as promoters: PV systems in community centres and homes, and solar pumping for small producers."}, "not": {"es": "Por confirmar con la alianza.", "en": "To be confirmed with the alliance."}, "asks": {"es": "Participación de la comunidad: las familias construyen y mujeres de la comunidad se forman como promotoras.", "en": "Community participation: families build the systems and local women train as promoters."}, "solutions": ["home_solar", "pump", "lamp"], "any": false, "url": "", "sources": [{"label": "Cluster Industrial, octubre 2026", "url": "https://clusterindustrial.com.mx/alianza-por-la-equidad-energetica-busca-superar-60-sistemas-solares-en-2026/"}, {"label": "Energías Renovables, octubre 2026", "url": "https://www.energias-renovables.com/fotovoltaica/un-proyecto-solar-sin-la-comunidad-pierde-20261008"}], "status": "verified", "gameTypes": ["ong", "empresa"]}, {"id": "uyitskaan", "type": "ngo", "territory": {"es": "Maní, Yucatán", "en": "Maní, Yucatán"}, "name": {"es": "U Yits Ka'an, Escuela de Agricultura Ecológica", "en": "U Yits Ka'an Ecological Farming School"}, "does": {"es": "Escuela campesina en Maní que opera sistemas de bombeo solar con pequeños productores.", "en": "Farmer school in Maní running solar pumping systems with small producers."}, "not": {"es": "Por confirmar.", "en": "To be confirmed."}, "asks": {"es": "Por confirmar: contacto a través de la escuela.", "en": "To be confirmed: contact through the school."}, "solutions": ["pump"], "any": false, "url": "", "sources": [{"label": "Energías Renovables, octubre 2026", "url": "https://www.energias-renovables.com/fotovoltaica/un-proyecto-solar-sin-la-comunidad-pierde-20261008"}], "status": "verified", "gameTypes": ["comunidad", "ong"]}, {"id": "tuumben", "type": "coop", "territory": {"es": "Felipe Carrillo Puerto (Q. Roo) y Sotuta (Yucatán)", "en": "Felipe Carrillo Puerto (Q. Roo) and Sotuta (Yucatán)"}, "name": {"es": "Túumben K'óoben (cooperativa)", "en": "Túumben K'óoben (cooperative)"}, "does": {"es": "Capacita a mujeres, hombres y jóvenes mayas en energía solar; pilotos de iluminación solar y de bombeo para riego; estufas ahorradoras de leña.", "en": "Trains Maya women, men and youth in solar energy; piloted solar lighting and irrigation pumping; wood-saving cookstoves."}, "not": {"es": "Por confirmar.", "en": "To be confirmed."}, "asks": {"es": "Participar en sus talleres y ferias de ecotecnias.", "en": "Taking part in its workshops and eco-technology fairs."}, "solutions": ["lamp", "pump", "stove"], "any": false, "url": "https://www.facebook.com/TuumbenKooben1/", "sources": [{"label": "CEC · EJ4Climate", "url": "https://www.cec.org/ej4climate/ej4climate-grants/mayan-women-promoting-solar-power/"}, {"label": "GlobalGiving · FMCN", "url": "https://www.globalgiving.org/projects/sustainable-rural-life/reports/"}], "status": "verified", "gameTypes": ["cooperativa", "comunidad"]}, {"id": "uyoolche", "type": "ngo", "territory": {"es": "Península de Yucatán", "en": "Yucatán Peninsula"}, "name": {"es": "U yo'olché A.C.", "en": "U yo'olché A.C."}, "does": {"es": "Más de 1,000 estufas ahorradoras construidas en comunidades mayas; cursos de construcción y uso; microcrédito sin intereses para estufas.", "en": "Over 1,000 wood-saving stoves built in Maya communities; building and use courses; zero-interest microcredit for stoves."}, "not": {"es": "Por confirmar.", "en": "To be confirmed."}, "asks": {"es": "Personas de la comunidad que se capaciten; crédito solidario.", "en": "Community members who take the training; group credit."}, "solutions": ["stove"], "any": false, "url": "", "sources": [{"label": "Clean Cooking Alliance · directorio", "url": "https://cleancooking.org/sector-directory/uyoolche-a-c/"}], "status": "verified", "gameTypes": ["ong"]}, {"id": "fmcn", "type": "finance", "territory": {"es": "Nacional", "en": "National"}, "name": {"es": "Fondo Mexicano para la Conservación de la Naturaleza (FMCN)", "en": "Mexican Fund for Nature Conservation (FMCN)"}, "does": {"es": "Ha financiado, con socios locales como Túumben K'óoben, estufas ahorradoras y sistemas solares en la península.", "en": "Has funded wood-saving stoves and solar systems in the peninsula with local partners such as Túumben K'óoben."}, "not": {"es": "Por confirmar.", "en": "To be confirmed."}, "asks": {"es": "Proyectos a través de organizaciones socias y convocatorias.", "en": "Projects through partner organisations and calls."}, "solutions": ["stove", "home_solar"], "any": false, "url": "https://www.fmcn.org", "sources": [{"label": "GlobalGiving · Sustainable Rural Life", "url": "https://www.globalgiving.org/projects/sustainable-rural-life/reports/"}], "status": "verified", "gameTypes": ["caja", "ong"]}, {"id": "cicy", "type": "academia", "territory": {"es": "Mérida, Yucatán", "en": "Mérida, Yucatán"}, "name": {"es": "CICY · Unidad de Energía Renovable", "en": "CICY · Renewable Energy Unit"}, "does": {"es": "Centro de investigación en Sierra Papacal: bioenergía, almacenamiento y sistemas híbridos; proyecto sobre participación indígena en la transición energética.", "en": "Research centre in Sierra Papacal: bioenergy, storage and hybrid systems; a project on Indigenous participation in the energy transition."}, "not": {"es": "No financia equipos.", "en": "Does not fund equipment."}, "asks": {"es": "Proponer una colaboración, un taller o un estudio.", "en": "Proposing a collaboration, workshop or study."}, "solutions": ["biodigester", "home_solar"], "any": true, "url": "https://www.cicy.mx", "sources": [{"label": "CICY · Informe 2021", "url": "https://www.cicy.mx/documentos/CICY/Doctos/informes/Informe_en_extenso_2021.pdf"}], "status": "verified", "gameTypes": ["universidad"]}, {"id": "cemda", "type": "rights", "territory": {"es": "Nacional", "en": "National"}, "name": {"es": "Centro Mexicano de Derecho Ambiental (CEMDA)", "en": "Mexican Environmental Law Center (CEMDA)"}, "does": {"es": "Acompañó legalmente a comunidades mayas de Muna, Sacalum y Ticul hasta la cancelación de megaproyectos solares.", "en": "Provided legal support to Maya communities in Muna, Sacalum and Ticul until large solar projects were cancelled."}, "not": {"es": "No instala equipos.", "en": "Does not install equipment."}, "asks": {"es": "Buscarlo cuando un proyecto afecta el territorio o los derechos de la comunidad.", "en": "Reach out when a project affects the community's land or rights."}, "solutions": [], "any": true, "url": "", "sources": [{"label": "Por Esto, junio 2026", "url": "https://www.poresto.com/yucatan/2026/6/23/comunidades-mayas-logran-la-cancelacion-definitiva-de-megaproyectos-solares-en-muna-sacalum-y-ticul.amp.html"}], "status": "verified", "gameTypes": ["ong"]}, {"id": "enertika", "type": "company", "territory": {"es": "México", "en": "Mexico"}, "name": {"es": "Enértika", "en": "Enértika"}, "does": {"es": "Empresa de energía solar que participa como socia en la Alianza por la Equidad Energética.", "en": "Solar energy company taking part as a partner in the Alliance for Energy Equity."}, "not": {"es": "Por confirmar.", "en": "To be confirmed."}, "asks": {"es": "Por confirmar con la empresa.", "en": "To be confirmed with the company."}, "solutions": ["home_solar", "pump"], "any": false, "url": "", "sources": [{"label": "Energías Renovables, octubre 2026", "url": "https://www.energias-renovables.com/fotovoltaica/un-proyecto-solar-sin-la-comunidad-pierde-20261008"}], "status": "verified", "gameTypes": ["empresa"]}, {"id": "municipio", "type": "gov", "territory": {"es": "Cada municipio", "en": "Each municipality"}, "name": {"es": "Tu ayuntamiento", "en": "Your municipal government"}, "does": {"es": "Gestiona obras y programas públicos en el municipio.", "en": "Manages public works and programmes in the municipality."}, "not": {"es": "No decide sin una solicitud formal de la comunidad.", "en": "Does not act without a formal request from the community."}, "asks": {"es": "Una solicitud firmada por la asamblea.", "en": "A request signed by the assembly."}, "solutions": ["pump", "lamp", "roof"], "any": false, "url": "", "sources": [], "status": "generic", "gameTypes": ["municipio"]}];
+const ICON = {
+  smoke:'<path d="M8 21c-2.2-2 2.2-4 0-6s2.2-4 0-6s2.2-4 0-6"/><path d="M14 21c-2.2-2 2.2-4 0-6s2.2-4 0-6"/>',
+  bulb:'<path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.7.6 1.1 1.3 1.1 2.2v.5h5V16c0-.9.4-1.6 1.1-2.2A6 6 0 0 0 12 3z"/>',
+  moon:'<path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/>',
+  drop:'<path d="M12 3s6.5 7 6.5 11.5a6.5 6.5 0 0 1-13 0C5.5 10 12 3 12 3z"/>',
+  snow:'<path d="M12 3v18M4.2 7.5l15.6 9M4.2 16.5l15.6-9"/>',
+  heat:'<path d="M3.5 11L12 4l8.5 7"/><path d="M5.5 9.5V20h13V9.5"/><path d="M10 18c-1-1 1-2 0-3.5M14 18c-1-1 1-2 0-3.5"/>',
+  phone:'<rect x="7.5" y="2.5" width="9" height="19" rx="2"/><path d="M11 18.5h2"/>',
+  coin:'<circle cx="12" cy="12" r="8.5"/><path d="M14.6 9.3c-.4-.9-1.4-1.4-2.6-1.4-1.6 0-2.6.8-2.6 1.9 0 2.6 5.3 1.4 5.3 4.2 0 1.1-1.1 2-2.7 2-1.3 0-2.3-.6-2.7-1.5M12 6.3v1.6M12 16v1.7"/>',
+  plus:'<circle cx="12" cy="12" r="8.5"/><path d="M12 8v8M8 12h8"/>',
+  stove:'<rect x="3.5" y="9" width="17" height="11" rx="1.5"/><path d="M15.5 9V3.5h2.5V9"/><path d="M10 17.5c-1.6 0-2.5-1-2.5-2.3 0-1.6 1.6-2.2 2-3.7.9.7 3 1.9 3 3.7 0 1.3-.9 2.3-2.5 2.3z"/>',
+  panel:'<path d="M2.5 16l3.2-10h12.6l3.2 10z"/><path d="M9.5 6l-1 10M14.5 6l1 10M4 11h16"/><path d="M12 16v4.5M8.5 20.5h7"/>',
+  pump:'<path d="M9 3.5s4.5 4.8 4.5 8a4.5 4.5 0 0 1-9 0C4.5 8.3 9 3.5 9 3.5z"/><path d="M18 20.5V8M15 11l3-3 3 3"/>',
+  dome:'<path d="M2.5 19.5h19"/><path d="M4.5 19.5a7.5 7.5 0 0 1 15 0"/><path d="M12 12V6.5h3"/>',
+  fridge:'<rect x="6" y="2.5" width="12" height="19" rx="2"/><path d="M6 9.5h12M9 5.5v2M9 12.5v3"/>',
+  roof:'<path d="M2.5 13L12 6l9.5 7"/><path d="M5 11.2V20h14v-8.8"/><circle cx="18.5" cy="4.5" r="2"/>',
+  gas:'<path d="M7.5 7.5h9v12a1.5 1.5 0 0 1-1.5 1.5H9a1.5 1.5 0 0 1-1.5-1.5z"/><path d="M10 7.5V4h4v3.5M7.5 12h9"/>',
+  building:'<path d="M3 9l9-5 9 5"/><path d="M5.5 10v8M9.8 10v8M14.2 10v8M18.5 10v8M3 20.5h18"/>',
+  doc:'<path d="M6 2.5h8.5l3.5 3.5v15.5H6z"/><path d="M14 2.5V6.5h4M9 11h6M9 14.5h6M9 18h3.5"/>',
+  coop:'<circle cx="12" cy="6.5" r="3"/><circle cx="6" cy="16.5" r="3"/><circle cx="18" cy="16.5" r="3"/><path d="M10.5 9l-3 5M13.5 9l3 5M9 16.5h6"/>',
+  heart:'<path d="M12 20s-7.5-4.6-7.5-10.2A4.2 4.2 0 0 1 12 7.2a4.2 4.2 0 0 1 7.5 2.6C19.5 15.4 12 20 12 20z"/>',
+  case:'<rect x="3" y="7.5" width="18" height="12.5" rx="1.5"/><path d="M9 7.5V4.5h6v3M3 12.5h18"/>',
+  flask:'<path d="M9 3h6M10 3v6.5l-5.4 8.7A1.8 1.8 0 0 0 6.1 21h11.8a1.8 1.8 0 0 0 1.5-2.8L14 9.5V3"/><path d="M7.5 15h9"/>',
+  houses:'<path d="M2.5 12.5l4.5-4 4.5 4V20h-9zM12.5 12.5l4.5-4 4.5 4V20h-9z"/>'
+};
+const ic = (n, cls='ic') => `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON[n]||''}</svg>`;
+
+const NEEDS = [
+  ['smoke','smoke','Mucho humo al cocinar','Smoke when cooking'],
+  ['outage','bulb','Se va la luz','Power cuts'],
+  ['night','moon','No hay luz de noche','No light at night'],
+  ['water','drop','Cuesta conseguir agua','Hard to get water'],
+  ['food','snow','La comida se echa a perder','Food goes bad'],
+  ['heat','heat','Mucho calor en la casa','Too hot indoors'],
+  ['phone','phone','No podemos cargar el celular','Can’t charge phones'],
+  ['cost','coin','Gastamos mucho en energía','High energy spending'],
+  ['other','plus','Otra','Other']
+];
+const SOLS = [
+  ['stove','stove','Estufa ahorradora de leña','Improved wood cookstove'],
+  ['lamp','bulb','Lámparas solares','Solar lamps'],
+  ['home_solar','panel','Sistema solar para casa','Home solar system'],
+  ['pump','pump','Bomba de agua solar','Solar water pump'],
+  ['biodigester','dome','Biodigestor','Biodigester'],
+  ['fridge','fridge','Refrigerador solar comunitario','Community solar fridge'],
+  ['roof','roof','Techo fresco','Cool roof'],
+  ['gas','gas','Estufa de gas','Gas stove'],
+  ['other','plus','Otra','Other']
+];
+const GTYPES = [
+  ['municipio','building','Municipio','Municipality'],
+  ['programa','doc','Programa público de energía','Public energy programme'],
+  ['cooperativa','coop','Cooperativa de energía','Energy cooperative'],
+  ['ong','heart','Organización civil o de cocinas limpias','Civil society or clean cooking organisation'],
+  ['empresa','case','Empresa','Company'],
+  ['universidad','flask','Universidad o centro de investigación','University or research centre'],
+  ['caja','coin','Caja de ahorro, microfinanciera o fondo','Savings bank, microfinance or fund'],
+  ['comunidad','houses','Otra comunidad que ya lo hizo','Another community that has done it']
+];
+const TYPES = {gov:['Gobierno','Government'],finance:['Financiamiento','Funding'],alliance:['Alianza','Alliance'],coop:['Cooperativa','Cooperative'],ngo:['Organización civil','Civil society'],academia:['Academia','Academia'],company:['Empresa','Company'],rights:['Derechos','Rights']};
+
+/* Example plans for the MEL simulation (clearly marked on the page) */
+const EXAMPLE_PLANS = [
+  {people:18, women:11, needs:['smoke','heat','cost'], solutions:['stove','roof'], types:['municipio','ong'], matches:['uyoolche','municipio'], example:true},
+  {people:24, women:13, needs:['water','outage','phone'], solutions:['pump','home_solar'], types:['cooperativa','programa'], matches:['tuumben','aey'], example:true},
+  {people:15, women:9, needs:['smoke','food','night'], solutions:['stove','lamp','fridge'], types:['ong','comunidad'], matches:['uyoolche','uyitskaan'], example:true}
+];
+
+const T = {
+es:{brand:'Protagonistas del Cambio',nav_how:'Cómo funciona',nav_kit:'Kit',nav_match:'Cargar y hacer Match',nav_data:'Datos',nav_actors:'Actores',
+hero_eyebrow:'Transición energética justa · Comunidades rurales de América Latina',hero_title:'Primero la comunidad. Después la tecnología.',hero_lead:'Un juego de mesa para que la comunidad decida su camino de energía, y una herramienta que conecta su Plan con quienes pueden ayudar.',cta_kit:'Descargar el kit',cta_match:'Probar el Match',
+why_eyebrow:'Por qué así',why_title:'Lo que nos dicen los datos del territorio piloto',
+fact1:'de los hogares de Yucatán cocina con leña o carbón; el promedio nacional es 13.5 %. Por eso el juego no habla solo de paneles.',
+fact2:'de la población rural de América Latina no tiene conectividad significativa. Por eso el juego es físico y la herramienta la usa solo quien facilita.',
+fact3:'Comunidades mayas de Muna, Sacalum y Ticul lograron cancelar megaproyectos solares hechos sin ellas. La tecnología sin la comunidad no avanza.',
+how_eyebrow:'Cómo se conecta todo',how_title:'Del juego en la mesa a una conversación real con quien puede ayudar',how_sub:'Cada paso produce algo que alimenta al siguiente. La comunidad decide en cada uno.',
+s1_where:'En la mesa · sin internet',s1_t:'Juego físico',s1_p:'La comunidad recorre 5 estaciones en un año de juego: necesidades, alternativas, actores, financiamiento y cuidado.',s1_o:'Produce: acuerdos en cada estación.',
+s2_where:'En papel',s2_t:'Hoja de Plan',s2_p:'Los acuerdos se escriben en la Hoja de Plan Comunitario. Ganen o pierdan, el Plan se queda con la comunidad.',s2_o:'Produce: el Plan de la comunidad.',
+s3_where:'Un celular · quien facilita',s3_t:'Carga del Plan',s3_p:'Con el consentimiento del grupo, quien facilita pasa el Plan a esta página. Sin nombres de personas.',s3_o:'Produce: datos para el Match y el MEL.',
+s4_where:'En esta página',s4_t:'Match real',s4_p:'El Plan se cruza con actores del territorio de los tipos que la comunidad eligió en el juego. Ahí deciden: «Sí, hablemos» o «No por ahora».',s4_o:'Produce: una ruta de contacto y un mensaje listo.',
+s5_where:'WhatsApp · 2 a 4 semanas',s5_t:'Seguimiento y MEL',s5_p:'El comité contacta a sus actores. El equipo da seguimiento en la fecha de revisión y mide lo aprendido.',s5_o:'Produce: evidencia para mejorar el juego.',
+kit_eyebrow:'Prototipo v0.1',kit_title:'El kit para imprimir',kit_sub:'18 páginas en tamaño carta: reglas, consentimiento, tablero, Hoja de Plan y 100 cartas. Se juega con maíz, frijol y pepita como fichas.',
+kit_es_p:'Versión para jugar en comunidad. Edición piloto Yucatán.',kit_en_p:'Para revisión de socios y jurados internacionales.',dl:'Descargar PDF',kit_inside:'Qué trae',
+ki1:'Reglas en 2 páginas y consentimiento para leer en voz alta',ki2:'Tablero: calendario de 12 meses y 5 estaciones',ki3:'8 roles sin género y la carta del Juez del mes',ki4:'25 mini-retos: pregunta, plática y lo que tenemos',ki5:'Eventos, soluciones, financiamiento y 8 actores para doblar',
+tool_eyebrow:'Herramienta de quien facilita',tool_title:'Cargar un Plan y hacer el Match',tool_sub:'Después del juego, quien facilita pasa la Hoja de Plan aquí. La página propone actores; la comunidad decide con quién hablar.',
+t0:'1 · Consentimiento',t1:'2 · Plan',t2:'3 · Match',t3:'4 · Ruta',mode:'Piloto · guardado simulado en este dispositivo',
+c_title:'Antes de cargar: el consentimiento del grupo',c_hint:'Marca lo que el grupo aceptó en el Paso 0 del juego. Sin las dos primeras, no se carga nada.',
+c1:'El grupo aceptó jugar y la autoridad de la comunidad dio permiso.',c2:'El grupo aceptó que se anoten sus decisiones, sin nombres, para mejorar el juego.',c3:'El grupo quiere compartir su Plan con los actores que elija (pregunta 4). Opcional.',
+c_err:'Faltan las dos primeras casillas. Sin ese consentimiento no se puede cargar el Plan.',next:'Siguiente',back:'Atrás',
+p_title:'La Hoja de Plan',example:'Ejemplo · cámbialo',p_hint:'Copia lo que la comunidad escribió en las dos páginas de la Hoja de Plan. No pongas nombres de personas.',p_place:'Municipio o región',p_place_s:'Opcional. Solo el municipio, nunca una dirección.',
+p_people:'Personas que jugaron',p_women:'De ellas, mujeres',p_women_s:'Para el MEL. Opcional.',p_needs:'Estación 1 · Sus 3 necesidades principales',p_sols:'Estación 2 · Las soluciones que eligieron',
+need_other_ph:'Escribe la otra necesidad',sol_other_ph:'Escribe la otra solución',
+p_contrib:'Estación 4 · Su aporte propio',p_review:'Estación 5 · Fecha de revisión',p_review_s:'El equipo da seguimiento en esta fecha.',
+p_types:'Estación 3 · Tipos de actores con los que hicieron match en el juego',p_types_s:'Está en la página 2 de la Hoja de Plan. En el Match solo aparecerán actores de estos tipos.',
+p_org:'Cómo se organiza la comunidad · respuestas cortas',q1:'¿Cómo toma decisiones la comunidad?',q2:'¿Qué fue lo más importante que hablaron?',q3:'¿Qué debe saber un actor antes de trabajar con ellos?',
+p_err_needs:'Elige de 1 a 3 necesidades. Si eliges «Otra», escríbela.',p_err_sols:'Elige al menos una solución. Si eliges «Otra», escríbela.',p_err_types:'Elige al menos un tipo de actor de la página 2 de la Hoja de Plan.',p_err_women:'Las mujeres no pueden ser más que las personas que jugaron.',tomatch:'Buscar actores',
+m_title:'Estación 3 en la vida real: el Match',m_hint:'Aparecen actores de los tipos que eligieron en el juego, primero los que ayudan con sus soluciones. Léanlos en grupo y decidan: «Sí, hablemos» o «No por ahora». También pueden deslizar la carta.',
+demo_actors:'Piloto: estos actores son ejemplos tomados de fuentes públicas. No hemos establecido relación con ninguno de ellos.',
+no:'No por ahora',yes:'Sí, hablemos',pile_yes:'Sí, hablemos',pile_no:'No por ahora',undo:'Deshacer',toroute:'Ver la ruta de contacto',
+k_does:'Qué hace',k_not:'Qué no hace',k_asks:'Para hacer match pide',k_why:'Por qué aparece',why_type:'Tipo elegido en el juego',why_sol:'Ayuda con',
+stack_done:'Ya revisaron todas las cartas. Pueden ver la ruta de contacto o deshacer alguna decisión.',stack_none:'No hay actores de ejemplo de esos tipos en esta base piloto. Vuelvan atrás y revisen los tipos.',pile_empty:'Todavía nada.',
+r_title:'La ruta de contacto de la comunidad',r_hint:'Esta página no envía nada. La comunidad decide cuándo y cómo contactar a cada actor. Prepárense para lo que cada uno pide.',
+r_none:'La comunidad no eligió ningún actor por ahora. Eso también es una decisión válida: pueden volver al Match cuando quieran.',
+r_prepare:'Prepárense para',r_site:'Sitio',r_source:'Fuente',r_msg:'Mensaje para presentarse (para copiar en WhatsApp o en una carta)',copy:'Copiar mensaje',copied:'Mensaje copiado.',copy_fail:'No se pudo copiar. Selecciona el texto y cópialo.',
+restart:'Cargar otro Plan',saved:'Plan guardado en este dispositivo y sumado a los datos agregados.',saved_noshare:'Plan guardado en este dispositivo, sin los actores elegidos, porque el grupo no aceptó compartirlos.',save_err:'No se pudo guardar en este navegador.',
+msg_intro:'Hola. Somos el comité de energía de una comunidad{place}. Después de un proceso comunitario identificamos estas necesidades: {needs}.',msg_sols:'Nos interesan estas soluciones: {sols}.',msg_contrib:'Como comunidad podemos aportar: {contrib}.',msg_org:'Cómo nos organizamos: {org}',msg_talk:'Lo más importante que hablamos: {talk}',msg_know:'Antes de trabajar con nosotros, es importante saber: {know}',msg_close:'Nos gustaría conversar para saber cómo trabajan y qué necesitan de nosotros. Gracias.',
+d_eyebrow:'MEL · datos agregados',d_title:'Lo que están diciendo las comunidades',d_sub:'Solo totales, sin datos de ninguna comunidad en particular.',
+sim_note:'Simulación del piloto: los Planes cargados se guardan solo en este dispositivo. Con financiamiento, este panel se conectará a una base de datos compartida y segura para todo el equipo.',sim_ex:'Incluir 3 Planes de ejemplo',sim_clear:'Borrar los Planes de este dispositivo',sim_confirm:'¿Seguro? Toca otra vez para borrar',sim_local:'Planes de este dispositivo',
+st_plans:'Planes',st_people:'Personas participantes',st_women:'Mujeres',st_matches:'Matches con actores',st_needs:'Necesidades más elegidas',st_sols:'Soluciones más elegidas',st_actors:'Actores con más matches',st_types:'Tipos de actor más elegidos',
+st_empty:'No hay Planes todavía. Activa los Planes de ejemplo o carga uno en la herramienta.',
+a_eyebrow:'Base de actores · ejemplos para el piloto',a_title:'Quién podría ayudar, qué hace y qué pide',a_sub:'Selección de ejemplo para demostrar cómo funciona la página piloto. No hemos establecido relación con ninguno de estos actores. La información viene de fuentes públicas revisadas el 22 de octubre de 2026; «Por confirmar» indica un dato que no encontramos.',
+all:'Todos',generic:'Genérico',game_types:'Tipo en el juego',other_sol:'Otra solución',other_need:'Otra necesidad',
+e_eyebrow:'Datos y ética',e_title:'Cómo cuidamos lo que comparte la comunidad',e1t:'Consentimiento en dos capas.',e1:'Primero la autoridad propia de la comunidad, después cada persona. Se lee en voz alta y en la lengua local.',e2t:'Sin nombres.',e2:'Se guardan solo las decisiones del grupo, el municipio y totales de participación.',e3t:'El Plan es de la comunidad.',e3:'Siguiendo los principios CARE, la comunidad se queda con su Plan y decide con quién compartirlo.',e4t:'Nada se envía solo.',e4:'El Match propone; la comunidad contacta. Ningún actor recibe datos desde esta página.',
+foot:'Protagonistas del Cambio · prototipo v0.1 · octubre 2026. Propuesta de diseño, no asesoría legal.'},
+en:{brand:'Protagonists of Change',nav_how:'How it works',nav_kit:'Kit',nav_match:'Upload & Match',nav_data:'Data',nav_actors:'Actors',
+hero_eyebrow:'Just energy transition · Rural communities in Latin America',hero_title:'Community first. Technology second.',hero_lead:'A board game for communities to decide their own energy path, and a tool that connects their Plan with the people who can help.',cta_kit:'Download the kit',cta_match:'Try the Match',
+why_eyebrow:'Why this design',why_title:'What the pilot territory’s data tells us',
+fact1:'of households in Yucatán cook with firewood or charcoal, against a 13.5% national average. That is why the game is about more than solar panels.',
+fact2:'of Latin America’s rural population lacks meaningful connectivity. That is why the game is physical and only the facilitator uses the tool.',
+fact3:'Maya communities in Muna, Sacalum and Ticul got large solar projects built without them cancelled. Technology without the community does not move forward.',
+how_eyebrow:'How it all connects',how_title:'From the game on the table to a real conversation with those who can help',how_sub:'Each step produces something that feeds the next. The community decides at every step.',
+s1_where:'On the table · no internet',s1_t:'Physical game',s1_p:'The community travels through 5 stations over one game year: needs, options, actors, funding and upkeep.',s1_o:'Output: agreements at each station.',
+s2_where:'On paper',s2_t:'Plan sheet',s2_p:'Agreements are written on the Community Plan sheet. Win or lose, the Plan stays with the community.',s2_o:'Output: the community’s Plan.',
+s3_where:'One phone · the facilitator',s3_t:'Plan upload',s3_p:'With the group’s consent, the facilitator enters the Plan on this page. No personal names.',s3_o:'Output: data for the Match and for MEL.',
+s4_where:'On this page',s4_t:'Real Match',s4_p:'The Plan is matched with actors in the territory of the types the community chose in the game. There they decide: “Yes, let’s talk” or “Not for now”.',s4_o:'Output: a contact route and a ready message.',
+s5_where:'WhatsApp · 2 to 4 weeks',s5_t:'Follow-up and MEL',s5_p:'The committee contacts its actors. The team follows up on the review date and measures what was learned.',s5_o:'Output: evidence to improve the game.',
+kit_eyebrow:'Prototype v0.1',kit_title:'The print-and-play kit',kit_sub:'18 US Letter pages: rules, consent, board, Plan sheet and 100 cards. Played with corn, beans and pumpkin seeds as tokens.',
+kit_es_p:'Version for playing with communities. Yucatán pilot edition.',kit_en_p:'For review by partners and international juries.',dl:'Download PDF',kit_inside:'What’s inside',
+ki1:'2-page rules and a consent script to read aloud',ki2:'Board: 12-month calendar and 5 stations',ki3:'8 gender-neutral roles and the Judge of the month card',ki4:'25 challenges: question, conversation and what we have',ki5:'Events, solutions, funding and 8 fold-over actors',
+tool_eyebrow:'Facilitator tool',tool_title:'Upload a Plan and make the Match',tool_sub:'After the game, the facilitator enters the Plan sheet here. The page suggests actors; the community decides who to talk to.',
+t0:'1 · Consent',t1:'2 · Plan',t2:'3 · Match',t3:'4 · Route',mode:'Pilot · simulated saving on this device',
+c_title:'Before uploading: the group’s consent',c_hint:'Tick what the group agreed to in Step 0 of the game. Without the first two, nothing is uploaded.',
+c1:'The group agreed to play and the community’s authority gave permission.',c2:'The group agreed that its decisions are recorded, without names, to improve the game.',c3:'The group wants to share its Plan with the actors it chooses (question 4). Optional.',
+c_err:'The first two boxes are missing. The Plan cannot be uploaded without that consent.',next:'Next',back:'Back',
+p_title:'The Plan sheet',example:'Example · change it',p_hint:'Copy what the community wrote on both pages of the Plan sheet. Do not include personal names.',p_place:'Municipality or region',p_place_s:'Optional. Municipality only, never an address.',
+p_people:'People who played',p_women:'Of whom, women',p_women_s:'For MEL. Optional.',p_needs:'Station 1 · Their 3 main needs',p_sols:'Station 2 · The solutions they chose',
+need_other_ph:'Write the other need',sol_other_ph:'Write the other solution',
+p_contrib:'Station 4 · Their own contribution',p_review:'Station 5 · Review date',p_review_s:'The team follows up on this date.',
+p_types:'Station 3 · Actor types they matched with in the game',p_types_s:'It is on page 2 of the Plan sheet. Only actors of these types will appear in the Match.',
+p_org:'How the community organises · short answers',q1:'How does the community make decisions?',q2:'What was the most important thing discussed?',q3:'What should an actor know before working with them?',
+p_err_needs:'Choose 1 to 3 needs. If you choose “Other”, write it.',p_err_sols:'Choose at least one solution. If you choose “Other”, write it.',p_err_types:'Choose at least one actor type from page 2 of the Plan sheet.',p_err_women:'Women cannot outnumber the people who played.',tomatch:'Find actors',
+m_title:'Station 3 in real life: the Match',m_hint:'Actors of the types chosen in the game appear, those helping with your solutions first. Read them as a group and decide: “Yes, let’s talk” or “Not for now”. You can also swipe the card.',
+demo_actors:'Pilot: these actors are examples taken from public sources. We have no relationship with any of them.',
+no:'Not for now',yes:'Yes, let’s talk',pile_yes:'Yes, let’s talk',pile_no:'Not for now',undo:'Undo',toroute:'See the contact route',
+k_does:'What it does',k_not:'What it does not do',k_asks:'To match, it asks for',k_why:'Why it appears',why_type:'Type chosen in the game',why_sol:'Helps with',
+stack_done:'You have reviewed every card. See the contact route or undo a decision.',stack_none:'There are no example actors of those types in this pilot database. Go back and check the types.',pile_empty:'Nothing yet.',
+r_title:'The community’s contact route',r_hint:'This page sends nothing. The community decides when and how to contact each actor. Prepare for what each one asks.',
+r_none:'The community chose no actors for now. That is a valid decision too: you can return to the Match at any time.',
+r_prepare:'Prepare',r_site:'Website',r_source:'Source',r_msg:'Introduction message (to copy into WhatsApp or a letter)',copy:'Copy message',copied:'Message copied.',copy_fail:'Copying failed. Select the text and copy it.',
+restart:'Upload another Plan',saved:'Plan saved on this device and added to the aggregate data.',saved_noshare:'Plan saved on this device without the chosen actors, because the group did not agree to share them.',save_err:'This browser could not save the Plan.',
+msg_intro:'Hello. We are the energy committee of a community{place}. Through a community process we identified these needs: {needs}.',msg_sols:'We are interested in these solutions: {sols}.',msg_contrib:'As a community we can contribute: {contrib}.',msg_org:'How we organise: {org}',msg_talk:'The most important thing we discussed: {talk}',msg_know:'Before working with us, it is important to know: {know}',msg_close:'We would like to talk to learn how you work and what you need from us. Thank you.',
+d_eyebrow:'MEL · aggregate data',d_title:'What communities are saying',d_sub:'Totals only, with no data about any single community.',
+sim_note:'Pilot simulation: uploaded Plans are stored on this device only. With funding, this panel will connect to a shared, secure database for the whole team.',sim_ex:'Include 3 example Plans',sim_clear:'Delete the Plans on this device',sim_confirm:'Sure? Tap again to delete',sim_local:'Plans on this device',
+st_plans:'Plans',st_people:'Participants',st_women:'Women',st_matches:'Matches with actors',st_needs:'Most chosen needs',st_sols:'Most chosen solutions',st_actors:'Actors with most matches',st_types:'Most chosen actor types',
+st_empty:'No Plans yet. Turn on the example Plans or upload one with the tool.',
+a_eyebrow:'Actor database · pilot examples',a_title:'Who could help, what they do and what they ask',a_sub:'An example selection to show how the pilot page works. We have no relationship with any of these actors. Information comes from public sources checked on 22 October 2026; “To be confirmed” marks data we could not find.',
+all:'All',generic:'Generic',game_types:'Type in the game',other_sol:'Other solution',other_need:'Other need',
+e_eyebrow:'Data and ethics',e_title:'How we look after what communities share',e1t:'Two-layer consent.',e1:'First the community’s own authority, then each person. Read aloud and in the local language.',e2t:'No names.',e2:'Only group decisions, the municipality and participation totals are stored.',e3t:'The Plan belongs to the community.',e3:'Following the CARE principles, the community keeps its Plan and decides who to share it with.',e4t:'Nothing is sent automatically.',e4:'The Match suggests; the community makes contact. No actor receives data from this page.',
+foot:'Protagonists of Change · prototype v0.1 · October 2026. Design proposal, not legal advice.'}
+};
+
+/* ---------- helpers ---------- */
+let lang = 'es';
+const store = {
+  get(k, d){ try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch(e) { return mem[k] ?? d; } },
+  set(k, v){ mem[k] = v; try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch(e) { return false; } }
+};
+const mem = {};
+{ const s = store.get('pdc-lang', 'es'); if (s === 'en' || s === 'es') lang = s; }
+const t = k => (T[lang][k] ?? T.es[k] ?? k);
+const L = o => (o && typeof o === 'object') ? (o[lang] || o.es || '') : (o || '');
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const $ = s => document.querySelector(s);
+const pick = (list, id) => { const s = list.find(x => x[0] === id); return s ? (lang === 'en' ? s[3] : s[2]) : id; };
+const sicon = id => (SOLS.find(x => x[0] === id) || [,'panel'])[1];
+const actorById = id => ACTORS.find(a => a.id === id);
+
+/* ---------- state ---------- */
+const EX_ES = { contrib:'Faena para construir las estufas y materiales de la región', q1:'Asamblea una vez al mes. El comité de energía propone y la asamblea decide.', q2:'El humo afecta sobre todo a quienes cocinan y a las niñas y niños.', q3:'Las reuniones son en la tarde, después del trabajo en la milpa. Muchas personas mayores hablan maya.' };
+const EX_EN = { contrib:'Community labour (faena) to build the stoves, and local materials', q1:'Monthly assembly. The energy committee proposes and the assembly decides.', q2:'Smoke mostly affects whoever cooks and the children.', q3:'Meetings are in the afternoon, after farm work. Many older people speak Maya.' };
+const plan = { place:'', people:18, women:11, needs:['smoke','heat','cost'], needOther:'', sols:['stove','roof'], solOther:'', types:['municipio','ong'], review:'', example:true, ...EX_ES };
+{ const d = new Date(); d.setDate(d.getDate() + 28); plan.review = d.toISOString().slice(0,10); }
+let step = 0, deck = [], yes = [], no = [], filter = 'all', saved = false;
+let showExamples = store.get('pdc-examples', true);
+let localPlans = store.get('pdc-plans', []);
+if (!Array.isArray(localPlans)) localPlans = [];
+
+/* ---------- i18n ---------- */
+function applyLang(){
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
+  $('#lang-es').setAttribute('aria-pressed', lang === 'es'); $('#lang-en').setAttribute('aria-pressed', lang === 'en');
+  if (plan.example) Object.assign(plan, lang === 'en' ? EX_EN : EX_ES);
+  $('#mode-text').textContent = t('mode');
+  $('#p-need-other').placeholder = t('need_other_ph'); $('#p-sol-other').placeholder = t('sol_other_ph');
+  renderPlanForm(); renderStack(); renderPiles(); if (step === 3) renderRoute(); renderStats(); renderActors();
+}
+function setLang(l){ lang = l; store.set('pdc-lang', l); applyLang(); }
+$('#lang-es').onclick = () => setLang('es'); $('#lang-en').onclick = () => setLang('en');
+
+/* ---------- steps ---------- */
+function go(n){
+  step = n;
+  document.querySelectorAll('[data-pane]').forEach(p => p.hidden = Number(p.dataset.pane) !== n);
+  document.querySelectorAll('[data-tab]').forEach(tb => { const i = Number(tb.dataset.tab); if (i === n) tb.setAttribute('aria-current','step'); else tb.removeAttribute('aria-current'); tb.classList.toggle('done', i < n); });
+  if (n === 3) { renderRoute(); savePlan(); }
+}
+document.querySelectorAll('[data-back]').forEach(b => b.onclick = () => go(Number(b.dataset.back)));
+$('#to1').onclick = () => { if (!$('#c1').checked || !$('#c2').checked) { $('#c-err').textContent = t('c_err'); return; } $('#c-err').textContent = ''; go(1); };
+$('#to2').onclick = () => {
+  readPlanForm();
+  const needsOk = plan.needs.length >= 1 && plan.needs.length <= 3 && (!plan.needs.includes('other') || plan.needOther);
+  const solsOk = plan.sols.length >= 1 && (!plan.sols.includes('other') || plan.solOther);
+  const err = !needsOk ? t('p_err_needs') : !solsOk ? t('p_err_sols') : !plan.types.length ? t('p_err_types') : (plan.women && plan.people && plan.women > plan.people) ? t('p_err_women') : '';
+  $('#p-err').textContent = err; if (err) return;
+  yes = []; no = []; saved = false; buildDeck(); go(2);
+};
+$('#to3').onclick = () => go(3);
+$('#restart').onclick = () => { yes = []; no = []; deck = []; saved = false; ['c1','c2','c3'].forEach(id => $('#'+id).checked = false); $('#save-status').textContent = ''; go(0); document.getElementById('match').scrollIntoView({behavior:'smooth'}); };
+
+/* ---------- plan form ---------- */
+function chipRow(el, list, sel, color){
+  el.innerHTML = list.map(([id, icn, es, en]) => `<button type="button" class="chip" style="--c:${color}" data-id="${id}" aria-pressed="${sel.includes(id)}">${ic(icn)}<span>${esc(lang==='en'?en:es)}</span></button>`).join('');
+}
+function renderPlanForm(){
+  $('#p-place').value = plan.place; $('#p-people').value = plan.people ?? ''; $('#p-women').value = plan.women ?? '';
+  $('#p-contrib').value = plan.contrib; $('#p-review').value = plan.review;
+  ['q1','q2','q3'].forEach(k => $('#'+k).value = plan[k] || '');
+  chipRow($('#needs'), NEEDS, plan.needs, 'var(--rosa)'); chipRow($('#sols'), SOLS, plan.sols, 'var(--verde)'); chipRow($('#types'), GTYPES, plan.types, 'var(--indigo)');
+  const no_ = $('#p-need-other'), so = $('#p-sol-other');
+  no_.hidden = !plan.needs.includes('other'); no_.value = plan.needOther; so.hidden = !plan.sols.includes('other'); so.value = plan.solOther;
+  $('#ex-tag').hidden = !plan.example;
+}
+function readPlanForm(){
+  plan.place = $('#p-place').value.trim().slice(0,80);
+  const num = v => { const n = parseInt(v,10); return Number.isFinite(n) && n >= 0 ? Math.min(n,200) : null; };
+  plan.people = num($('#p-people').value); plan.women = num($('#p-women').value);
+  plan.contrib = $('#p-contrib').value.trim().slice(0,400); plan.review = $('#p-review').value;
+  plan.needOther = $('#p-need-other').value.trim().slice(0,80); plan.solOther = $('#p-sol-other').value.trim().slice(0,80);
+  ['q1','q2','q3'].forEach(k => plan[k] = $('#'+k).value.trim().slice(0,400));
+}
+function unExample(){ if (plan.example) { plan.example = false; $('#ex-tag').hidden = true; } }
+function toggleChip(e, key, max){
+  const b = e.target.closest('.chip'); if (!b) return;
+  readPlanForm(); unExample();
+  const id = b.dataset.id, arr = plan[key];
+  if (arr.includes(id)) arr.splice(arr.indexOf(id),1); else { if (max && arr.length >= max) return; arr.push(id); }
+  renderPlanForm();
+  if (id === 'other' && arr.includes('other')) (key === 'needs' ? $('#p-need-other') : $('#p-sol-other')).focus();
+}
+$('#needs').addEventListener('click', e => toggleChip(e, 'needs', 3));
+$('#sols').addEventListener('click', e => toggleChip(e, 'sols', 0));
+$('#types').addEventListener('click', e => toggleChip(e, 'types', 0));
+['#p-place','#p-people','#p-women','#p-contrib','#p-review','#q1','#q2','#q3','#p-need-other','#p-sol-other'].forEach(s => $(s).addEventListener('input', unExample));
+
+/* ---------- match ---------- */
+function scoreActor(a){
+  const overlap = (a.solutions || []).filter(s => plan.sols.includes(s));
+  const types = (a.gameTypes || []).filter(g => plan.types.includes(g));
+  return { a, overlap, types, score: overlap.length * 2 + (a.any ? 1 : 0) };
+}
+function buildDeck(){
+  deck = ACTORS.map(scoreActor).filter(x => x.types.length).sort((x,y) => y.score - x.score).map(x => x.a.id);
+  renderStack(); renderPiles();
+}
+function cardHTML(a, cls){
+  const sc = scoreActor(a);
+  const why = [`${t('why_type')}: ${sc.types.map(g => pick(GTYPES, g)).join(', ')}`];
+  if (sc.overlap.length) why.push(`${t('why_sol')}: ${sc.overlap.map(s => pick(SOLS, s)).join(', ')}`);
+  return `<div class="acard ${cls}" data-id="${esc(a.id)}">
+    <div class="ahd"><div class="type">${esc(L({es:TYPES[a.type]?.[0],en:TYPES[a.type]?.[1]}))}</div><h4>${esc(L(a.name))}</h4><div class="terr">${esc(L(a.territory))}</div></div>
+    <div class="abd">
+      <div><div class="k">${t('k_does')}</div>${esc(L(a.does))}</div>
+      <div><div class="k">${t('k_not')}</div>${esc(L(a.not))}</div>
+      <div><div class="k">${t('k_asks')}</div>${esc(L(a.asks))}</div>
+      <div class="why"><b>${t('k_why')}:</b> ${esc(why.join(' · '))}</div>
+    </div>
+    <span class="stamp yes">${esc(t('yes'))}</span><span class="stamp no">${esc(t('no'))}</span>
+  </div>`;
+}
+function renderStack(){
+  const st = $('#stack');
+  if (!deck.length) {
+    const nothing = !yes.length && !no.length;
+    st.innerHTML = `<div class="empty" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center">${esc(nothing ? t('stack_none') : t('stack_done'))}</div>`;
+    $('#btn-yes').disabled = $('#btn-no').disabled = true; return;
+  }
+  $('#btn-yes').disabled = $('#btn-no').disabled = false;
+  const top3 = deck.slice(0,3).map(actorById).filter(Boolean);
+  st.innerHTML = top3.map((a,i) => cardHTML(a, i === 0 ? 'top' : i === 1 ? 'behind' : 'behind2')).reverse().join('');
+  attachDrag(st.querySelector('.acard.top'));
+}
+function renderPiles(){
+  const pile = (ids, from) => ids.length ? ids.map(id => `<div class="pill"><span>${esc(L(actorById(id)?.name))}</span><button type="button" data-undo="${esc(id)}" data-from="${from}">${esc(t('undo'))}</button></div>`).join('') : `<div class="empty">${esc(t('pile_empty'))}</div>`;
+  $('#pile-yes').innerHTML = pile(yes, 'yes'); $('#pile-no').innerHTML = pile(no, 'no');
+}
+document.addEventListener('click', e => {
+  const u = e.target.closest('[data-undo]'); if (!u) return;
+  const id = u.dataset.undo; if (u.dataset.from === 'yes') yes = yes.filter(x => x !== id); else no = no.filter(x => x !== id);
+  deck.unshift(id); saved = false; renderStack(); renderPiles();
+});
+function decide(v){
+  if (!deck.length) return;
+  const id = deck[0], el = document.querySelector('.acard.top');
+  const finish = () => { deck.shift(); (v ? yes : no).push(id); saved = false; renderStack(); renderPiles(); };
+  if (el && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    el.style.transform = `translateX(${v ? 140 : -140}%) rotate(${v ? 18 : -18}deg)`; el.style.opacity = '0';
+    el.querySelector(v ? '.stamp.yes' : '.stamp.no').style.opacity = 1;
+    setTimeout(finish, 230);
+  } else finish();
+}
+$('#btn-yes').onclick = () => decide(true); $('#btn-no').onclick = () => decide(false);
+document.addEventListener('keydown', e => { if (step !== 2 || /input|textarea/i.test(e.target.tagName)) return; if (e.key === 'ArrowRight') decide(true); if (e.key === 'ArrowLeft') decide(false); });
+function attachDrag(el){
+  if (!el) return;
+  let x0 = null, dx = 0;
+  el.addEventListener('pointerdown', e => { if (e.target.closest('a,button')) return; x0 = e.clientX; dx = 0; el.setPointerCapture(e.pointerId); el.style.transition = 'none'; });
+  el.addEventListener('pointermove', e => { if (x0 === null) return; dx = e.clientX - x0; el.style.transform = `translateX(${dx}px) rotate(${dx/18}deg)`; el.querySelector('.stamp.yes').style.opacity = Math.max(0, dx/120); el.querySelector('.stamp.no').style.opacity = Math.max(0, -dx/120); });
+  const end = () => { if (x0 === null) return; x0 = null; el.style.transition = ''; if (Math.abs(dx) > 100) decide(dx > 0); else { el.style.transform = ''; el.querySelectorAll('.stamp').forEach(s => s.style.opacity = 0); } };
+  el.addEventListener('pointerup', end); el.addEventListener('pointercancel', end);
+}
+
+/* ---------- route ---------- */
+const needLabels = () => plan.needs.map(n => n === 'other' ? plan.needOther : pick(NEEDS, n).toLowerCase());
+const solLabels = () => plan.sols.map(s => s === 'other' ? plan.solOther : pick(SOLS, s).toLowerCase());
+function message(){
+  const place = plan.place ? (lang === 'en' ? ` in ${plan.place}` : ` de ${plan.place}`) : '';
+  const parts = [t('msg_intro').replace('{place}', place).replace('{needs}', needLabels().join(', ')), t('msg_sols').replace('{sols}', solLabels().join(', '))];
+  if (plan.contrib) parts.push(t('msg_contrib').replace('{contrib}', plan.contrib));
+  if (plan.q1) parts.push(t('msg_org').replace('{org}', plan.q1));
+  if (plan.q2) parts.push(t('msg_talk').replace('{talk}', plan.q2));
+  if (plan.q3) parts.push(t('msg_know').replace('{know}', plan.q3));
+  parts.push(t('msg_close'));
+  return parts.join('\n\n');
+}
+function renderRoute(){
+  $('#route').innerHTML = yes.length ? yes.map(actorById).filter(Boolean).map(a => `<div class="rcard"><h4>${esc(L(a.name))}</h4>
+    <p><b>${esc(t('r_prepare'))}:</b> ${esc(L(a.asks))}</p><p style="color:var(--mute)">${esc(L(a.not))}</p>
+    <p>${a.url ? `<a href="${esc(a.url)}" target="_blank" rel="noopener">${esc(t('r_site'))}</a> · ` : ''}${(a.sources||[]).slice(0,1).map(s => `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(t('r_source'))}: ${esc(s.label)}</a>`).join('')}</p></div>`).join('')
+    : `<div class="empty">${esc(t('r_none'))}</div>`;
+  $('#msg').textContent = message();
+}
+$('#copy').onclick = () => {
+  const txt = $('#msg').textContent, st = $('#save-status');
+  const fallback = () => { const r = document.createRange(); r.selectNodeContents($('#msg')); const s = getSelection(); s.removeAllRanges(); s.addRange(r); st.className = 'status warn'; st.textContent = t('copy_fail'); };
+  try { navigator.clipboard.writeText(txt).then(() => { st.className = 'status ok'; st.textContent = t('copied'); }, fallback); } catch(e) { fallback(); }
+};
+
+/* ---------- simulated database ---------- */
+function savePlan(){
+  if (saved) return;
+  const st = $('#save-status'), share = $('#c3').checked;
+  const rec = { created: new Date().toISOString(), place: plan.place, people: plan.people, women: plan.women, needs: plan.needs.slice(), needOther: plan.needOther, solutions: plan.sols.slice(), solOther: plan.solOther, types: plan.types.slice(), contribution: plan.contrib, review: plan.review, org: { decisions: plan.q1, talk: plan.q2, know: plan.q3 }, share, matches: share ? yes.slice() : [], lang };
+  localPlans.push(rec); saved = true;
+  const ok = store.set('pdc-plans', localPlans);
+  st.className = ok ? 'status ok' : 'status warn';
+  st.textContent = ok ? (share ? t('saved') : t('saved_noshare')) : t('save_err');
+  renderStats();
+}
+function aggregate(){
+  const plans = [...(showExamples ? EXAMPLE_PLANS : []), ...localPlans];
+  const agg = { plans: plans.length, people: 0, women: 0, matches: 0, needs: {}, solutions: {}, actors: {}, types: {} };
+  plans.forEach(p => { agg.people += Number(p.people) || 0; agg.women += Number(p.women) || 0;
+    (p.needs||[]).forEach(n => agg.needs[n] = (agg.needs[n]||0) + 1); (p.solutions||[]).forEach(s => agg.solutions[s] = (agg.solutions[s]||0) + 1);
+    (p.types||[]).forEach(g => agg.types[g] = (agg.types[g]||0) + 1);
+    (p.matches||[]).forEach(a => { agg.actors[a] = (agg.actors[a]||0) + 1; agg.matches++; }); });
+  return agg;
+}
+function bars(obj, nameFn, color){
+  const rows = Object.entries(obj || {}).sort((a,b) => b[1]-a[1]).slice(0,6); const max = rows[0]?.[1] || 1;
+  return rows.length ? rows.map(([k,v]) => `<div class="bar" style="--c:${color}"><span>${esc(nameFn(k))}</span><span class="n">${v}</span><div class="track"><div class="fill" style="width:${(v/max*100).toFixed(1)}%"></div></div></div>`).join('') : `<div class="empty">${esc(t('pile_empty'))}</div>`;
+}
+let clearArmed = false;
+function renderStats(){
+  const s = aggregate();
+  const sim = `<div class="sim"><span>${esc(t('sim_note'))}</span>
+    <span style="display:flex;gap:16px;flex-wrap:wrap;align-items:center"><label><input type="checkbox" id="sim-ex" ${showExamples ? 'checked' : ''}> ${esc(t('sim_ex'))}</label>
+    <span>${esc(t('sim_local'))}: <b>${localPlans.length}</b></span>${localPlans.length ? `<button type="button" class="linkbtn" id="sim-clear">${esc(clearArmed ? t('sim_confirm') : t('sim_clear'))}</button>` : ''}</span></div>`;
+  if (!s.plans) { $('#stats').innerHTML = sim + `<div class="empty">${esc(t('st_empty'))}</div>`; return bindSim(); }
+  const pct = s.people ? Math.round(s.women / s.people * 100) + ' %' : '—';
+  $('#stats').innerHTML = sim + `<div class="tiles">
+      <div class="tile"><b>${s.plans}</b><span>${esc(t('st_plans'))}</span></div>
+      <div class="tile"><b>${s.people}</b><span>${esc(t('st_people'))}</span></div>
+      <div class="tile"><b>${pct}</b><span>${esc(t('st_women'))}</span></div>
+      <div class="tile"><b>${s.matches}</b><span>${esc(t('st_matches'))}</span></div></div>
+    <div class="bars">
+      <div><h3>${esc(t('st_needs'))}</h3>${bars(s.needs, k => k === 'other' ? t('other_need') : pick(NEEDS, k), 'var(--rosa)')}</div>
+      <div><h3>${esc(t('st_sols'))}</h3>${bars(s.solutions, k => k === 'other' ? t('other_sol') : pick(SOLS, k), 'var(--verde)')}</div>
+      <div><h3>${esc(t('st_types'))}</h3>${bars(s.types, k => pick(GTYPES, k), 'var(--indigo)')}</div>
+    </div>`;
+  bindSim();
+}
+function bindSim(){
+  const ex = $('#sim-ex'); if (ex) ex.onchange = () => { showExamples = ex.checked; store.set('pdc-examples', showExamples); renderStats(); };
+  const cl = $('#sim-clear'); if (cl) cl.onclick = () => { if (!clearArmed) { clearArmed = true; renderStats(); setTimeout(() => { clearArmed = false; renderStats(); }, 4000); return; } clearArmed = false; localPlans = []; store.set('pdc-plans', []); renderStats(); };
+}
+
+/* ---------- actors directory ---------- */
+function renderActors(){
+  const types = ['all', ...Object.keys(TYPES).filter(k => ACTORS.some(a => a.type === k))];
+  $('#filters').innerHTML = types.map(k => `<button type="button" class="chip" style="--c:var(--indigo)" data-f="${k}" aria-pressed="${filter===k}">${esc(k==='all' ? t('all') : L({es:TYPES[k][0],en:TYPES[k][1]}))}</button>`).join('');
+  $('#actor-list').innerHTML = ACTORS.filter(a => filter === 'all' || a.type === filter).map(a => `<article class="actor">
+      <div class="type">${esc(L({es:TYPES[a.type]?.[0],en:TYPES[a.type]?.[1]}))} ${a.status==='generic' ? `<span class="badge-gen">${esc(t('generic'))}</span>` : ''}</div>
+      <h3>${esc(L(a.name))}</h3><div class="terr">${esc(L(a.territory))}</div>
+      <p>${esc(L(a.does))}</p>
+      <div class="k">${esc(t('k_asks'))}</div><p>${esc(L(a.asks))}</p>
+      <div class="k">${esc(t('game_types'))}</div><p>${esc((a.gameTypes||[]).map(g => pick(GTYPES, g)).join(' · '))}</p>
+      <div class="sol-icons">${(a.solutions||[]).map(s => `<span title="${esc(pick(SOLS, s))}">${ic(sicon(s))}</span>`).join('')}</div>
+      <div class="src">${a.url ? `<a href="${esc(a.url)}" target="_blank" rel="noopener">${esc(t('r_site'))}</a><br>` : ''}${(a.sources||[]).map(s => `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.label)}</a>`).join('<br>')}</div>
+    </article>`).join('');
+}
+$('#filters').addEventListener('click', e => { const b = e.target.closest('[data-f]'); if (!b) return; filter = b.dataset.f; renderActors(); });
+
+/* ---------- boot ---------- */
+applyLang(); go(0);
+</script>
+
+</body>
+</html>
